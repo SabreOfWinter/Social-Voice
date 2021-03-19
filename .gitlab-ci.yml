@@ -7,12 +7,7 @@ docker-build-master:
   stage: build
   services:
     - docker:dind
-  before_script:
-    - docker-compose --version
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE" .
-    - docker push "$CI_REGISTRY_IMAGE"
-  only:
-    - master
+    - apk add --no-cache docker-compose
+    - docker-compose up -d
 
