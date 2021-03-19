@@ -1,30 +1,13 @@
 stages:
   - install
-  - build
 
-install-docker:
-  image: docker:latest
-  stage: install
-  services:
-    - docker:dind
-  before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-  script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE" .
-    - docker push "$CI_REGISTRY_IMAGE"
-  only:
-    - master
 
 docker-build:
-  # Official docker image.
-  image: docker:latest
-  stage: build
-  services:
-    - docker:dind
-  before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  stage: install
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
-    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
-  except:
+    - docker build -t $CI_REGISTRY_IMAGE:latest .
+    - docker tag $CI_REGISTRY_IMAGE:latest $CI_REGISTRY_IMAGE:latest
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker push $CI_REGISTRY_IMAGE:latest
+  only:
     - master
