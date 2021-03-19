@@ -9,4 +9,5 @@ docker-build-master:
     - docker:dind
   script:
     - docker-compose version
+    - docker-compose up -d
 
