@@ -29,3 +29,12 @@ services:
 #      - django
     ports:
       - "4000:4000"
+  web:
+    build: ./webserver/SocialVoiceProject/
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./webserver/SocialVoiceProject/:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - nginx
