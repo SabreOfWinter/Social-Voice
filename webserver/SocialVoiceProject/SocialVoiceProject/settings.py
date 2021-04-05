@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'SocialVoiceProject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo', 
+        'ENGINE': 'django', 
         'NAME': 'social-voice-app-db', # 
         'ENFORCE_SCHEMA': False, #
     }
