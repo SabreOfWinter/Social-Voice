@@ -26,7 +26,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-   # path('SocialVoiceProject/', include('db.urls')),
-   # path('', RedirectView.as_view(url='socialvoiceapp/')),
+    path('socialvoiceapp/', include('socialvoiceapp.urls')),
+    path('', RedirectView.as_view(url='socialvoiceapp/')),
     path('accounts/', include('django.contrib.auth.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
