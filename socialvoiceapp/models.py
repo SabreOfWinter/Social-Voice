@@ -25,3 +25,6 @@ class Profile(models.Model):
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
     avatar = models.ImageField(upload_to='avatars', height_field=128, width_field=128)
+
+class AudioMessage(models.Model):
+    audio_data = models.FileField(upload_to='messages')
