@@ -27,4 +27,4 @@ class Profile(models.Model):
     avatar = models.ImageField(upload_to='avatars', height_field=128, width_field=128)
 
 class AudioMessage(models.Model):
-    audio_data = models.FileField(upload_to='messages')
+    audio_data = models.FileField(upload_to='messages', validators=[validate_file_extension])
