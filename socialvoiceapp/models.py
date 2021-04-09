@@ -33,3 +33,9 @@ class Thread(models.Model):
     creation_timestamp = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE) #User who created the thread
     message = models.OneToOneField(AudioMessage, on_delete=models.CASCADE) #Messaging that starts the topic being discussed
+
+class ThreadMessage(models.Model):
+    creation_timestamp = models.DateTimeField(auto_now_add=True) #Time and date created
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE) #User who created the message
+    thread_posted_to = models.ForeignKey(Thread, on_delete=models.CASCADE) #Thread the user commented on
+    message = models.OneToOneField(AudioMessage, on_delete=models.CASCADE)
