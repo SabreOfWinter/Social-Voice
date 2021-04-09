@@ -1,4 +1,7 @@
 from django.contrib import admin
-from djongo import models
-
+from .models import Profile, Country, City 
 # Register your models here.
+
+admin.site.register(Profile)
+admin.site.register(Country)
+admin.site.register(City)
