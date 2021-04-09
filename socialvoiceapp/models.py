@@ -28,3 +28,8 @@ class Profile(models.Model):
 
 class AudioMessage(models.Model):
     audio_data = models.FileField(upload_to='messages', validators=[validate_file_extension])
+
+class Thread(models.Model):
+    creation_timestamp = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE) #User who created the thread
+    message = models.OneToOneField(AudioMessage, on_delete=models.CASCADE) #Messaging that starts the topic being discussed
