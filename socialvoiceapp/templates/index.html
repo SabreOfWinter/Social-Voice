@@ -1,6 +1,7 @@
 {% extends "base_generic.html" %}
 
 {% block index %}
+  {% load static %}
   <h1>Welcome to <em>SocialVoice!</em></h1>
     <div class="main-content">
       <!-- start revolution slider -->
@@ -13,7 +14,7 @@
                           <!-- SLIDE 01 -->
                           <li data-index="rs-73" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="300"  data-thumb="http://works.themepunch.com/revolution_5_3/wp-content/"  data-rotate="0"  data-saveperformance="off"  data-title="01" data-param1="01" data-description="">
                               <!-- MAIN IMAGE -->
-                              <img src="images/home-branding-agency-bg-img-03.png" alt=""  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgcolor="#F3F3F3" data-bgparallax="off" class="rev-slidebg" data-no-retina>
+                              <img src="{% static 'media/home-branding-agency-bg-img-03.png' %}" alt=""  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgcolor="#F3F3F3" data-bgparallax="off" class="rev-slidebg" data-no-retina>
 
                               <!-- gradient line layer -->
                               <div class="tp-caption tp-resizeme"
