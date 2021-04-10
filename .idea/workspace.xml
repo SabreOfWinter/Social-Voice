@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="21e1cd01-4ecd-4138-bb16-371bb0703322" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/socialvoiceapp/css/font-icons.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/socialvoiceapp/css/layers.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/socialvoiceapp/css/navigation.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/socialvoiceapp/css/responsive.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/socialvoiceapp/css/settings.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/socialvoiceapp/css/theme-vendors.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/WiredTiger.turtle" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/WiredTiger.turtle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/WiredTiger.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/WiredTiger.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/_mdb_catalog.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/_mdb_catalog.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/collection-0--6880663148131999099.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/collection-0--6880663148131999099.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/collection-0-4430528622344281088.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/collection-0-4430528622344281088.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/collection-0-7551939502929966759.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/collection-0-7551939502929966759.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/collection-11--6880663148131999099.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/collection-11--6880663148131999099.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/collection-11-7551939502929966759.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/collection-11-7551939502929966759.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/collection-2-4430528622344281088.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/collection-2-4430528622344281088.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/collection-21--6880663148131999099.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/collection-21--6880663148131999099.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/collection-4--6880663148131999099.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/collection-4--6880663148131999099.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/collection-4-4430528622344281088.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/collection-4-4430528622344281088.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/collection-4-7551939502929966759.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/collection-4-7551939502929966759.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/collection-47--6880663148131999099.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/collection-47--6880663148131999099.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/collection-7--6880663148131999099.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/collection-7--6880663148131999099.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/collection-7-4430528622344281088.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/collection-7-4430528622344281088.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/collection-7-7551939502929966759.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/collection-7-7551939502929966759.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/diagnostic.data/metrics.interim" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/diagnostic.data/metrics.interim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-1--6880663148131999099.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-1--6880663148131999099.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-1-4430528622344281088.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-1-4430528622344281088.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-1-7551939502929966759.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-1-7551939502929966759.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-10--6880663148131999099.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-10--6880663148131999099.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-10-7551939502929966759.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-10-7551939502929966759.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-12--6880663148131999099.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-12--6880663148131999099.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-12-7551939502929966759.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-12-7551939502929966759.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-13--6880663148131999099.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-13--6880663148131999099.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-13-7551939502929966759.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-13-7551939502929966759.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-2--6880663148131999099.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-2--6880663148131999099.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-2-7551939502929966759.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-2-7551939502929966759.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-22--6880663148131999099.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-22--6880663148131999099.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-23--6880663148131999099.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-23--6880663148131999099.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-24--6880663148131999099.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-24--6880663148131999099.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-3--6880663148131999099.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-3--6880663148131999099.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-3-4430528622344281088.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-3-4430528622344281088.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-3-7551939502929966759.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-3-7551939502929966759.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-31--6880663148131999099.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-31--6880663148131999099.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-31-7551939502929966759.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-31-7551939502929966759.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-32--6880663148131999099.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-32--6880663148131999099.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-32-7551939502929966759.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-32-7551939502929966759.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-48--6880663148131999099.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-48--6880663148131999099.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-49--6880663148131999099.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-49--6880663148131999099.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-5--6880663148131999099.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-5--6880663148131999099.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-5-4430528622344281088.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-5-4430528622344281088.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-5-7551939502929966759.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-5-7551939502929966759.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-50--6880663148131999099.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-50--6880663148131999099.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-6--6880663148131999099.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-6--6880663148131999099.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-6-4430528622344281088.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-6-4430528622344281088.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-6-7551939502929966759.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-6-7551939502929966759.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-8--6880663148131999099.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-8--6880663148131999099.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-8-4430528622344281088.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-8-4430528622344281088.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-8-7551939502929966759.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-8-7551939502929966759.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-9--6880663148131999099.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-9--6880663148131999099.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-9-4430528622344281088.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-9-4430528622344281088.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/index-9-7551939502929966759.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/index-9-7551939502929966759.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/journal/WiredTigerLog.0000000022" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data-db/sizeStorer.wt" beforeDir="false" afterPath="$PROJECT_DIR$/data-db/sizeStorer.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/socialvoiceapp/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/socialvoiceapp/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/socialvoiceapp/templates/base_generic.html" beforeDir="false" afterPath="$PROJECT_DIR$/socialvoiceapp/templates/base_generic.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/socialvoiceapp/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/socialvoiceapp/templates/index.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1qz54kqbxRbS9X86s0Rpo1aFHft" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="21e1cd01-4ecd-4138-bb16-371bb0703322" name="Default Changelist" comment="" />
+      <created>1618069389679</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1618069389679</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.css" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+</project>

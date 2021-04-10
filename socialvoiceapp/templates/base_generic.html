@@ -8,9 +8,19 @@
   <!-- Add additional CSS in static file -->
   {% load static %}
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- style sheets and font icons  -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/font-icons.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/theme-vendors.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}" />
+  <!-- revolution slider -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/settings.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/layers.css' %}">
+  <link rel="stylesheet" type="text/css" href="revolution/css/navigation.css">
 </head>
 <body>
-  <div class="container-fluid">
+{% block index %}
+{% endblock %}
+<!--  <div class="container-fluid">
     <div class="row">
       <div class="col-sm-2">
       {% block sidebar %}
@@ -28,6 +38,6 @@
       </div>
       <div class="col-sm-10 ">{% block content %}{% endblock %}</div>
     </div>
-  </div>
+  </div> -->
 </body>
 </html>
