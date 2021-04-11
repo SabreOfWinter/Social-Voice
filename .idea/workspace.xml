@@ -20,9 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="21e1cd01-4ecd-4138-bb16-371bb0703322" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/socialvoiceapp/templates/footer.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/socialvoiceapp/templates/base_generic.html" beforeDir="false" afterPath="$PROJECT_DIR$/socialvoiceapp/templates/base_generic.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/socialvoiceapp/templates/feed.html" beforeDir="false" afterPath="$PROJECT_DIR$/socialvoiceapp/templates/feed.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/socialvoiceapp/templates/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/socialvoiceapp/templates/footer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/socialvoiceapp/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/socialvoiceapp/templates/registration/login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
