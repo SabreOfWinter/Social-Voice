@@ -25,85 +25,10 @@
 </head>
 <body>
 
-    <!-- start header -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-transparent header-light fixed-top navbar-boxed header-reverse-scroll">
-            <div class="container-fluid nav-header-container">
-                <div class="col-5 col-lg-2 pl-lg-0 mr-auto mr-lg-0">
-                    <a class="navbar-brand" href="index.html">
-                        <img src="images/logo-black.png" data-at2x="images/logo-black@2x.png" alt="" class="default-logo">
-                        <img src="images/logo-black.png" data-at2x="images/logo-black@2x.png" alt="" class="alt-logo">
-                        <img src="images/logo-black.png" data-at2x="images/logo-black@2x.png" class="mobile-logo" alt="">
-                    </a>
-                </div>
-                <div class="col-auto col-lg-8 md-position-initial md-no-padding">
-                    <button class="navbar-toggler float-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-line"></span>
-                        <span class="navbar-toggler-line"></span>
-                        <span class="navbar-toggler-line"></span>
-                        <span class="navbar-toggler-line"></span>
-                    </button>
-                    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                        <ul class="navbar-nav alt-font">
-                            <li>
-                                <a href="#" class="nav-link">Home</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link">Pages</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link">Portfolio</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);" class="nav-link">Elements</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link">Features</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link">Blog</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);" class="nav-link">Shop</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-auto col-lg-2 text-right hidden-xs px-lg-0">
-                    <div class="header-social-icon d-inline-block">
-                        <a href="http://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="http://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <!-- end header -->
+  {% include 'navbar.html' %}
+  {% block content %}
+  {% endblock %}
 
-{% block index %}
-{% endblock %}
-<!--
-<div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-2">
-      {% block sidebar %}
-        <ul class="sidebar-nav">
-          <li><a href="{% url 'index' %}">Home</a></li>
-      
-        {% if user.is_authenticated %}
-  <li>User: {{ user.get_username }}</li>
-  <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
-{% else %}
-  <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
-{% endif %}
-</ul>
-     {% endblock %}
-      </div>
-      <div class="col-sm-10 ">{% block content %}{% endblock %}</div>
-    </div>
-  </div>
--->
 
     <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/theme-vendors.min.js' %}"></script>
