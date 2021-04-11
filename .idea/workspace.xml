@@ -20,6 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="21e1cd01-4ecd-4138-bb16-371bb0703322" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/socialvoiceapp/templates/footer.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/socialvoiceapp/templates/feed.html" beforeDir="false" afterPath="$PROJECT_DIR$/socialvoiceapp/templates/feed.html" afterDir="false" />
     </list>
@@ -38,13 +39,14 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/socialvoiceapp/static" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/socialvoiceapp/static/media" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/socialvoiceapp/static" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/socialvoiceapp/static/media" />
       <recent name="$PROJECT_DIR$/socialvoiceapp/static" />
       <recent name="$PROJECT_DIR$/socialvoiceapp/static/css" />
       <recent name="$PROJECT_DIR$/socialvoiceapp/media" />
