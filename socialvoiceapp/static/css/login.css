@@ -88,10 +88,11 @@
 .container .info span .fa {
   color: #EF3B3A;
 }
-body {
+
+#loginbody {
   background-image: url('/socialvoiceapp/static/media/home-branding-agency-bg-img-03.png'); /* fallback for old browsers */
-  background-size: cover;
+  background-size: contain;
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;      
+  -moz-osx-font-smoothing: grayscale;
 }
