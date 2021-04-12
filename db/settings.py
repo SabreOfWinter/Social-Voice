@@ -90,7 +90,7 @@ DATABASES = {
          },
         'NAME': 'socialvoice',
         'CLIENT': {
-            'host': 'localhost',
+            'host': 'mongo',
             'port': 27017,
             'username': 'root',
             'password': "mongoadmin",
