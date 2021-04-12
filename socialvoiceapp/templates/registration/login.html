@@ -1,9 +1,13 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <div class="login-page">
-    <div class="form">
-      <form  method="post" action="{% url 'login' %}" class="register-form">
+ <!-- Login CSS -->
+{% load static %}
+<section id="loginbody">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}" />
+  <div id="login-page">
+    <div id="form">
+      <form  method="post" action="{% url 'login' %}" id="register-form">
         {% csrf_token %}
         <input type="text" placeholder="Username"/>
         <input type="password" placeholder="Password"/>
@@ -11,17 +15,17 @@
         <button>create</button>
         <p class="message">Already registered? <a href="#">Sign In</a></p>
       </form>
-      <form class="login-form" action="{% url 'login' %}" method="post" >
+      <form id="login-form" action="{% url 'login' %}" method="post" >
         {% csrf_token %}
-        {{ form.username }}
-        {{ form.password }}
+        <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username" placeholder="Username">
+        <input type="password" name="password" autocomplete="current-password" required="" id="id_password" placeholder="Password">
         <button type="submit">login</button>
         <p class="message">Not registered? <a href="#">Create an account</a></p>
         <input type="hidden" name="next" value="{{ next }}" />
       </form>
     </div>
   </div>
-
+</section>
  <!-- {# Assumes you setup the password_reset view in your URLconf #}
   <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
  -->
