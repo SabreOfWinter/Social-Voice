@@ -21,7 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="21e1cd01-4ecd-4138-bb16-371bb0703322" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/socialvoiceapp/templates/base_generic.html" beforeDir="false" afterPath="$PROJECT_DIR$/socialvoiceapp/templates/base_generic.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/socialvoiceapp/static/css/voicememos.css" beforeDir="false" afterPath="$PROJECT_DIR$/socialvoiceapp/static/css/voicememos.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/socialvoiceapp/templates/feed.html" beforeDir="false" afterPath="$PROJECT_DIR$/socialvoiceapp/templates/feed.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/socialvoiceapp/templates/voicememos.html" beforeDir="false" afterPath="$PROJECT_DIR$/socialvoiceapp/templates/voicememos.html" afterDir="false" />
     </list>
