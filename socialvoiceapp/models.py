@@ -1,6 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
 from .validators import validate_file_extension
+
+# def validate_file_extension(value):
+#     import os
+#     from django.core.exceptions import ValidationError
+#     ext = os.path.splitext(value.name)[1]  # [0] returns path+filename
+#     valid_extensions = ['.mp3']
+#     if not ext.lower() in valid_extensions:
+#         raise ValidationError('Unsupported file extension.')
+
 # Create your models here.
 
 class Country(models.Model):
@@ -25,18 +34,18 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
-    avatar = models.ImageField(upload_to='avatars', height_field=128, width_field=128)
+    # avatar = models.ImageField(upload_to='avatars', height_field=128, width_field=128)
 
-class AudioMessage(models.Model):
-    audio_data = models.FileField(upload_to='messages', validators=[validate_file_extension])
+# class AudioMessage(models.Model):
+#     # audio_data = models.FileField(upload_to='messages', validators=[validate_file_extension])
+#     audio_data = models.CharField(max_length=2)
+# class Thread(models.Model):
+#     creation_timestamp = models.DateTimeField(auto_now_add=True)
+#     user = models.ForeignKey(Profile, on_delete=models.CASCADE) #User who created the thread
+#     message = models.OneToOneField(AudioMessage, on_delete=models.CASCADE) #Messaging that starts the topic being discussed
 
-class Thread(models.Model):
-    creation_timestamp = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE) #User who created the thread
-    message = models.OneToOneField(AudioMessage, on_delete=models.CASCADE) #Messaging that starts the topic being discussed
-
-class ThreadMessage(models.Model):
-    creation_timestamp = models.DateTimeField(auto_now_add=True) #Time and date created
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE) #User who created the message
-    thread_posted_to = models.ForeignKey(Thread, on_delete=models.CASCADE) #Thread the user commented on
-    message = models.OneToOneField(AudioMessage, on_delete=models.CASCADE)
+# class ThreadMessage(models.Model):
+#     creation_timestamp = models.DateTimeField(auto_now_add=True) #Time and date created
+#     user = models.ForeignKey(Profile, on_delete=models.CASCADE) #User who created the message
+#     thread_posted_to = models.ForeignKey(Thread, on_delete=models.CASCADE) #Thread the user commented on
+#     message = models.OneToOneField(AudioMessage, on_delete=models.CASCADE)
