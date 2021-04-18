@@ -19,7 +19,7 @@ class Country(models.Model):
         return self.name
 
 class City(models.Model):
-    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=50)
 
     def __str__(self):
@@ -34,7 +34,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
-    # avatar = models.ImageField(upload_to='avatars', height_field=128, width_field=128)
+#     # avatar = models.ImageField(upload_to='avatars', height_field=128, width_field=128)
 
 # class AudioMessage(models.Model):
 #     # audio_data = models.FileField(upload_to='messages', validators=[validate_file_extension])
