@@ -52,7 +52,7 @@ services:
   make_migrations:
     build: .
     image: app
-    command: python manage.py makemigrations
+    command: python manage.py makemigrations 
     volumes:
       - .:/db
     links:
