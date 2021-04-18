@@ -1,6 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
-from .validators import validate_file_extension
+from .validators import validate_file_extension, validate_image_file_extension
+
+from django.conf import settings
+from djongo.storage import GridFSStorage
+
+# Define your GrifFSStorage instance 
+grid_fs_storage = GridFSStorage(collection='myfiles', base_url=''.join(['./', 'myfiles/']))
 
 # def validate_file_extension(value):
 #     import os
@@ -26,6 +32,8 @@ class City(models.Model):
         return self.name
 
 class Profile(models.Model):
+
+
     # This model is extended from the default User model, it deals with data outside of authentication
     # default user model attributes:
         # username
@@ -34,6 +42,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
+    avatar = models.ImageField(upload_to='avatars', storage=grid_fs_storage, null=True, validators=[validate_image_file_extension])
 #     # avatar = models.ImageField(upload_to='avatars', height_field=128, width_field=128)
 
 # class AudioMessage(models.Model):
