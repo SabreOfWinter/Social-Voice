@@ -5,7 +5,7 @@ from .validators import validate_audio_file_extension, validate_image_file_exten
 from django.conf import settings
 from djongo.storage import GridFSStorage
 
-# Define your GrifFSStorage instance 
+# Define your GrifFSStorage instance
 grid_fs_storage = GridFSStorage(collection='myfiles', base_url=''.join([settings.BASE_URL, 'myfiles/']))
 
 # def validate_file_extension(value):
@@ -41,7 +41,7 @@ class Profile(models.Model):
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
     avatar = models.ImageField(upload_to='avatars', storage=grid_fs_storage, null=True, validators=[validate_image_file_extension])
-
+ 
 class AudioMessage(models.Model):
      audio_data = models.FileField(upload_to='messages', storage=grid_fs_storage, null=True, validators=[validate_audio_file_extension])
      user = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
