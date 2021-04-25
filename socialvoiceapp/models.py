@@ -53,4 +53,4 @@ def update_user_profile(sender, instance, created, **kwargs):
 
 class AudioMessage(models.Model):
      audio_data = models.FileField(upload_to='messages', storage=grid_fs_storage, null=True, validators=[validate_audio_file_extension])
-     user = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
+     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
