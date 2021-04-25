@@ -20,7 +20,7 @@
                     <ul class="navbar-nav alt-font">
                         {% if user.is_authenticated %}
                         <li>
-                            <a href="feed" class="nav-link">Feed</a>
+                            <a href="{% url 'feed'%}" class="nav-link">Feed</a>
                         </li>
                         <li>
                             <a href="{% url 'profile-detail'%}" class="nav-link">Profile</a>
@@ -30,7 +30,7 @@
                         </li>
                         {% else %}
                         <li>
-                            <a href="index" class="nav-link">Home</a>
+                            <a href="{% url 'index'%}" class="nav-link">Home</a>
                         </li>
                         <li>
                             <a href="{% url 'login'%}?next={{request.path}}" class="nav-link">Login/Register</a>
