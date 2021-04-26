@@ -1,10 +1,12 @@
 from django.db import models
+# from djongo import models
 from django.contrib.auth.models import User
 from .validators import validate_audio_file_extension, validate_image_file_extension
 
 from django.conf import settings
 from djongo.storage import GridFSStorage
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 # Define your GrifFSStorage instance
 grid_fs_storage = GridFSStorage(collection='myfiles', base_url=''.join([settings.BASE_URL, 'myfiles/']))
 
@@ -37,11 +39,18 @@ class Profile(models.Model):
         # username
         # password
         # email
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
     avatar = models.ImageField(upload_to='avatars', storage=grid_fs_storage, null=True, validators=[validate_image_file_extension])
- 
+
+@receiver(post_save, sender=User)
+def update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+    instance.profile.save()
+
+
 class AudioMessage(models.Model):
      audio_data = models.FileField(upload_to='messages', storage=grid_fs_storage, null=True, validators=[validate_audio_file_extension])
-     user = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
+     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)

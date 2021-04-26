@@ -64,18 +64,39 @@ def feed_view(request):
 
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import ProfileCreationForm
+from .forms import ProfileCreationForm, UserForm
 
+from django.db import transaction
 
-def profile_create_view(request):
-    form = ProfileCreationForm()
+@transaction.atomic
+def create_user_view(request):
     if request.method == 'POST':
-        form = ProfileCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('profile_add')
-    return render(request, 'socialvoiceapp/register.html', {'form': form})
+        user_form = UserForm(request.POST)
+        profile_form = ProfileCreationForm(request.POST)
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save()
+            user.refresh_from_db()  # This will load the Profile created by the Signal
+            profile_form = ProfileCreationForm(request.POST, instance=user.profile)  # Reload the profile form with the profile instance
+            profile_form.full_clean()  # Manually clean the form this time. It is implicitly called by "is_valid()" method
+            profile_form.save()  # Gracefully save the form
+    else:
+        user_form = UserForm()
+        profile_form = ProfileCreationForm()
+    return render(request, 'socialvoiceapp/register.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
 
+
+# def profile_create_view(request):
+#     form = ProfileCreationForm()
+#     if request.method == 'POST':
+#         form = ProfileCreationForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('register')
+#     return render(request, 'socialvoiceapp/register.html', {'form': form})
+#
 
 
 
