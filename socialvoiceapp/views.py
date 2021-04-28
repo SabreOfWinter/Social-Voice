@@ -105,6 +105,29 @@ def feed_view(request):
         }
     ).sort('upload_time', -1)
 
+    messages = []
+    for message in audio_messages:
+        messages.append({
+            'audio':message,
+            'profile': auth_user_coll.find_one(
+                {#Query
+                    'id': message['user_id']
+                },
+                {#Fields to get
+                    'username', 'is_active', 'date_joined'
+                }
+            ),
+            'avatar': user_coll.find_one(
+                {#Query
+                    'user_id': message['user_id']
+                },
+                {#Fields to get
+                    'avatar'
+                }
+            )
+            
+        })
+
     context = {
 
     }
