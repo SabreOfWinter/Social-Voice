@@ -59,6 +59,9 @@ def profile_view(request):
 
 @login_required
 def feed_view(request):
+    client = MongoClient('mongo', 27017, username='root', password='mongoadmin')
+    db = client['socialvoice']
+    
     context = {
 
     }
