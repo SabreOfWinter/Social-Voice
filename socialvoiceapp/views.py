@@ -15,6 +15,11 @@ from django.views.generic import ListView, CreateView, UpdateView
 from django.urls import reverse_lazy
 from socialvoiceapp.models import Profile, Country, City, AudioMessage
 
+from pymongo import MongoClient
+import gridfs
+from gridfs import GridFS 
+from bson import ObjectId
+
 # Create your views here.
 #@login_required
 def index_view(request):
@@ -54,8 +59,86 @@ def profile_view(request):
 
 @login_required
 def feed_view(request):
-    context = {
+    client = MongoClient('mongo', 27017, username='root', password='mongoadmin')
+    db = client['socialvoice']
 
+    avatar_fs = gridfs.GridFS(db, collection='myfiles.avatars')
+    audio_fs = gridfs.GridFS(db, collection='myfiles.messages')
+
+    user_coll = db['socialvoiceapp_profile']
+    auth_user_coll = db['auth_user']
+
+    users_ids = user_coll.find({'city_id': Profile.objects.get(user=request.user.id).city.id}, {'user_id', 'avatar'})
+    
+    users = []
+    ids_to_search = []
+        
+    for i in users_ids:
+        ids_to_search.append(i['user_id'])
+
+        users.append(
+            { 'user':auth_user_coll.find_one(
+                        { #Query
+                            'id': i['user_id']
+                        },
+                        { #Fields to get
+                            'username','is_active', 'date_joined'
+                        }
+                    ),
+                    'user_id': i['user_id'],
+                    'avatar_id': i['avatar']
+                }
+        )
+
+        #Build avatar
+        file_name = i['avatar'].split('/')[1]  #Split the avatar url to get the file name to be used in query for the avatar files
+        meta = avatar_fs.get_version(filename=file_name) #Gets file details using filename from profile
+        avatar_bucket = gridfs.GridFSBucket(db, bucket_name='myfiles.avatars')
+        avatar_file = open(str('socialvoiceapp/static/avatars/'+file_name), 'wb')  #Write to file
+        avatar_bucket.download_to_stream(file_id=meta._id, destination=avatar_file) #Download file to static folder
+        avatar_file.close()        
+
+    audio_coll = db['socialvoiceapp_audiomessage']
+    audio_messages = audio_coll.find(
+        {
+            'user_id': {"$in": ids_to_search}
+        }
+    ).sort('upload_time', -1)
+
+    messages = []
+    for message in audio_messages:
+        messages.append({
+            'audio':message,
+            'profile': auth_user_coll.find_one(
+                {#Query
+                    'id': message['user_id']
+                },
+                {#Fields to get
+                    'username', 'is_active', 'date_joined'
+                }
+            ),
+            'avatar': user_coll.find_one(
+                {#Query
+                    'user_id': message['user_id']
+                },
+                {#Fields to get
+                    'avatar'
+                }
+            )
+            
+        })
+
+        #Build audio
+        file_name = message['audio_data'].split('/')[1]  #Split the audio url to get the file name to be used in query for the message files
+        meta = audio_fs.get_version(filename=file_name) #Gets file details using filename from profile
+        audio_bucket = gridfs.GridFSBucket(db, bucket_name='myfiles.messages')
+        audio_file = open(str('socialvoiceapp/static/messages/'+file_name), 'wb')  #Write to file
+        audio_bucket.download_to_stream(file_id=meta._id, destination=audio_file) #Download file to static folder
+        audio_file.close()
+
+    context = {
+        'profile': Profile.objects.get(user=request.user.id),
+        'messages': messages
     }
     return render(request, 'feed.html', context=context)
 
