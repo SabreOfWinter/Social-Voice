@@ -90,6 +90,14 @@ def feed_view(request):
                 }
         )
 
+        #Build avatar
+        file_name = i['avatar'].split('/')[1]  #Split the avatar url to get the file name to be used in query for the avatar files
+        meta = avatar_fs.get_version(filename=file_name) #Gets file details using filename from profile
+        avatar_bucket = gridfs.GridFSBucket(db, bucket_name='myfiles.avatars')
+        avatar_file = open(str('socialvoiceapp/static/avatars/'+file_name), 'wb')  #Write to file
+        avatar_bucket.download_to_stream(file_id=meta._id, destination=avatar_file) #Download file to static folder
+        avatar_file.close()        
+
     context = {
 
     }
