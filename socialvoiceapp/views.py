@@ -98,6 +98,13 @@ def feed_view(request):
         avatar_bucket.download_to_stream(file_id=meta._id, destination=avatar_file) #Download file to static folder
         avatar_file.close()        
 
+    audio_coll = db['socialvoiceapp_audiomessage']
+    audio_messages = audio_coll.find(
+        {
+            'user_id': {"$in": ids_to_search}
+        }
+    ).sort('upload_time', -1)
+
     context = {
 
     }
