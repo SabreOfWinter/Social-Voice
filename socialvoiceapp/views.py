@@ -61,7 +61,10 @@ def profile_view(request):
 def feed_view(request):
     client = MongoClient('mongo', 27017, username='root', password='mongoadmin')
     db = client['socialvoice']
-    
+
+    avatar_fs = gridfs.GridFS(db, collection='myfiles.avatars')
+    audio_fs = gridfs.GridFS(db, collection='myfiles.messages')
+
     context = {
 
     }
