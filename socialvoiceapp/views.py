@@ -137,7 +137,8 @@ def feed_view(request):
         audio_file.close()
 
     context = {
-
+        'profile': Profile.objects.get(user=request.user.id),
+        'messages': messages
     }
     return render(request, 'feed.html', context=context)
 
