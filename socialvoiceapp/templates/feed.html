@@ -34,7 +34,7 @@
                     <div class="col col-sm-8 wow animate__fadeInUp" data-wow-delay="0.6s">
                         <div class="testimonials testimonials-style-03 last-paragraph-no-margin">
                             <div class="testimonials-bubble border-radius-5px bg-white box-shadow-medium box-shadow-extra-large-hover padding-2-rem-lr padding-2-rem-tb margin-35px-bottom lg-padding-2-rem-lr">
-                                {% include 'voicememos.html' %}
+                                {% include 'voicememos.html' with audio=message.audio.audio_data %}
                             </div>
                             <div class="author padding-20px-lr">
                                 {% if message.profile.is_active %}
