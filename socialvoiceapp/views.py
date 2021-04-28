@@ -128,6 +128,14 @@ def feed_view(request):
             
         })
 
+        #Build audio
+        file_name = message['audio_data'].split('/')[1]  #Split the audio url to get the file name to be used in query for the message files
+        meta = audio_fs.get_version(filename=file_name) #Gets file details using filename from profile
+        audio_bucket = gridfs.GridFSBucket(db, bucket_name='myfiles.messages')
+        audio_file = open(str('socialvoiceapp/static/messages/'+file_name), 'wb')  #Write to file
+        audio_bucket.download_to_stream(file_id=meta._id, destination=audio_file) #Download file to static folder
+        audio_file.close()
+
     context = {
 
     }
