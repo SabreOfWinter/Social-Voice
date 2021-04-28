@@ -15,6 +15,11 @@ from django.views.generic import ListView, CreateView, UpdateView
 from django.urls import reverse_lazy
 from socialvoiceapp.models import Profile, Country, City, AudioMessage
 
+from pymongo import MongoClient
+import gridfs
+from gridfs import GridFS 
+from bson import ObjectId
+
 # Create your views here.
 #@login_required
 def index_view(request):
