@@ -68,6 +68,28 @@ def feed_view(request):
     user_coll = db['socialvoiceapp_profile']
     auth_user_coll = db['auth_user']
 
+    users_ids = user_coll.find({'city_id': Profile.objects.get(user=request.user.id).city.id}, {'user_id', 'avatar'})
+    
+    users = []
+    ids_to_search = []
+        
+    for i in users_ids:
+        ids_to_search.append(i['user_id'])
+
+        users.append(
+            { 'user':auth_user_coll.find_one(
+                        { #Query
+                            'id': i['user_id']
+                        },
+                        { #Fields to get
+                            'username','is_active', 'date_joined'
+                        }
+                    ),
+                    'user_id': i['user_id'],
+                    'avatar_id': i['avatar']
+                }
+        )
+
     context = {
 
     }
