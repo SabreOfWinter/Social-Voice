@@ -7,19 +7,13 @@ from django.conf import settings
 from djongo.storage import GridFSStorage
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
+import datetime
+
 # Define your GrifFSStorage instance
 grid_fs_storage = GridFSStorage(collection='myfiles', base_url=''.join([settings.BASE_URL, 'myfiles/']))
 
-# def validate_file_extension(value):
-#     import os
-#     from django.core.exceptions import ValidationError
-#     ext = os.path.splitext(value.name)[1]  # [0] returns path+filename
-#     valid_extensions = ['.mp3']
-#     if not ext.lower() in valid_extensions:
-#         raise ValidationError('Unsupported file extension.')
-
 # Create your models here.
-
 class Country(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
@@ -52,5 +46,6 @@ def update_user_profile(sender, instance, created, **kwargs):
 
 
 class AudioMessage(models.Model):
-     audio_data = models.FileField(upload_to='messages', storage=grid_fs_storage, null=True, validators=[validate_audio_file_extension])
-     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    audio_data = models.FileField(upload_to='messages', storage=grid_fs_storage, null=True, validators=[validate_audio_file_extension])
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    upload_time = models.DateTimeField()
