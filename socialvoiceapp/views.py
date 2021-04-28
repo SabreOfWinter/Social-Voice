@@ -65,6 +65,9 @@ def feed_view(request):
     avatar_fs = gridfs.GridFS(db, collection='myfiles.avatars')
     audio_fs = gridfs.GridFS(db, collection='myfiles.messages')
 
+    user_coll = db['socialvoiceapp_profile']
+    auth_user_coll = db['auth_user']
+
     context = {
 
     }
