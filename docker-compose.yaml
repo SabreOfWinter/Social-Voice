@@ -5,6 +5,8 @@ services:
     ports:
       - 4000:80
     restart: "on-failure"
+    depends_on: 
+      - web
   mongo:
     image: mongo
     restart: always
@@ -32,8 +34,8 @@ services:
       - .:/code
     ports:
       - "8000:8000"
+      - "8001:8000"
     depends_on:
-      - nginx
       - migration
     links:
       - mongo
