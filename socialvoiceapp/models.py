@@ -8,7 +8,7 @@ from djongo.storage import GridFSStorage
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-import datetime
+from datetime import datetime
 
 # Define your GrifFSStorage instance
 grid_fs_storage = GridFSStorage(collection='myfiles', base_url=''.join([settings.BASE_URL, 'myfiles/']))
@@ -48,4 +48,4 @@ def update_user_profile(sender, instance, created, **kwargs):
 class AudioMessage(models.Model):
     audio_data = models.FileField(upload_to='messages', storage=grid_fs_storage, null=True, validators=[validate_audio_file_extension])
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    upload_time = models.DateTimeField()
+    upload_time = models.DateTimeField(default=datetime.now())
