@@ -38,14 +38,15 @@ class Profile(models.Model):
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
     avatar = models.ImageField(upload_to='avatars', storage=grid_fs_storage, null=True, validators=[validate_image_file_extension])
 
+class AudioMessage(models.Model):
+    managed = True
+    audio_data = models.FileField(upload_to='messages', storage=grid_fs_storage, null=True, validators=[validate_audio_file_extension])
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    upload_time = models.DateTimeField()
+
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
     instance.profile.save()
 
-
-class AudioMessage(models.Model):
-    audio_data = models.FileField(upload_to='messages', storage=grid_fs_storage, null=True, validators=[validate_audio_file_extension])
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    upload_time = models.DateTimeField()
