@@ -4,7 +4,7 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import JsonResponse, HttpResponse
-import datetime
+from datetime import datetime
 from datetime import date, timedelta
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
@@ -14,6 +14,7 @@ from django.contrib.auth.models import User
 from django.views.generic import ListView, CreateView, UpdateView
 from django.urls import reverse_lazy
 from socialvoiceapp.models import Profile, Country, City, AudioMessage
+from .forms import AddAudioMessageForm
 
 from pymongo import MongoClient
 import gridfs
@@ -137,9 +138,20 @@ def feed_view(request):
         audio_bucket.download_to_stream(file_id=meta._id, destination=audio_file) #Download file to static folder
         audio_file.close()
 
+    #Add audio
+    form = AddAudioMessageForm(request.POST, request.FILES, initial = {'user': request.user.id}) # Load the add audio form, with the user field initalized as the logged in user
+    form.fields['audio_data'].label = 'Audio' # Changes the audio field name in the form
+    form.fields['user'].disabled = True # The user input is selected by default as the current logged in user, no changes should be allowed
+
+    if request.method == 'POST':
+        if form.is_valid(): # Only allows for audio to be saved if valid audio file is uploaded
+            form.save()
+            return HttpResponseRedirect('')
+
     context = {
         'profile': Profile.objects.get(user=request.user.id),
-        'messages': messages
+        'messages': messages,
+        'addAudioForm': form
     }
     return render(request, 'feed.html', context=context)
 
