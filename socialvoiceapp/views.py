@@ -14,7 +14,7 @@ from django.contrib.auth.models import User
 from django.views.generic import ListView, CreateView, UpdateView
 from django.urls import reverse_lazy
 from socialvoiceapp.models import Profile, Country, City, AudioMessage
-from .forms import AddAudioMessageForm
+from .forms import AddAudioMessageForm, DeleteAudioMessageForm
 
 from pymongo import MongoClient
 import gridfs
@@ -65,10 +65,29 @@ def profile_view(request):
         'upload_time': audio_messages[i]['upload_time'],
         'audio_id': audio_messages[i]['audio_data'].split('/')[1].split('.')[0]
         })
+
+    form = DeleteAudioMessageForm(request.POST, request.FILES)
+    if request.method == "POST":
+        audio_files_coll = db['myfiles.messages.files']
+        audio_chuncks_coll = db['myfiles.messages.chunks']
+
+        #Delete all chuncks with matching files_id to files id
+        file_name = str(request.POST['pk']).split('/')[1]
+        file_id = audio_files_coll.find_one({'filename': file_name})['_id']
+        audio_chuncks_coll.delete_many({'files_id': file_id})
+
+        #Delete all files with matching filename to audio message
+        audio_files_coll.delete_many({'filename': file_name})
+        
+        #Delete audio message with id matching pk
+        audio_coll.delete_one({'audio_data': request.POST['pk']})
+
+        return HttpResponseRedirect('')
         
     context = {
         'profile': Profile.objects.get(user=request.user.id),
-        'messages': messages
+        'messages': messages,
+        'deleteAudioForm': form 
     }
 
     return render(request, 'user_profile.html', context=context)
