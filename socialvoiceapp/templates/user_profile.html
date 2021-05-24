@@ -35,7 +35,28 @@
               </div>
 
               <div id="messages_posted" class="tab-pane fade">
+                <h5 class="alt-font text-extra-dark-gray font-weight-600 letter-spacing-minus-1px">These are the messages you have posted</h5>
+                <div class="row">
+                  {% if messages %}
+                    {% for message in messages %}
 
+
+                    <div class="col-12 panel panel-default fade-in">
+                      <div class="row panel-body testimonials-bubble border-radius-5px bg-white box-shadow-medium box-shadow-extra-large-hover padding-2-rem-lr padding-2-rem-tb margin-35px-bottom lg-padding-2-rem-lr">
+                        <div class="col-6 align-middle">
+                          {% include 'voicememos.html' with audio=message.audio_data %}
+                        </div>
+                        <span class="col-3 align-middle">{{message.upload_time}}</span>   
+
+                        </div> 
+                    </div>
+                    {% endfor %}
+                  {% else %}
+                  <div>
+                    <p>No Messages Found Posted From This Account</p>
+                  </div>                  
+                  {% endif %}
+                </div>
               </div>
             </div>
           </div>
