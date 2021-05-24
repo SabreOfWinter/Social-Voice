@@ -9,18 +9,21 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from datetime import datetime
+import django
 
 # Define your GrifFSStorage instance
 grid_fs_storage = GridFSStorage(collection='myfiles', base_url=''.join([settings.BASE_URL, 'myfiles/']))
 
 # Create your models here.
 class Country(models.Model):
+    _id = models.AutoField(primary_key=True)#models.IntegerField(auto_created=True, default=0, primary_key=True, unique=True)    
     name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.name
 
 class City(models.Model):
+    _id = models.AutoField(primary_key=True)#models.IntegerField(auto_created=True, default=0, primary_key=True, unique=True)    
     country = models.ForeignKey(Country, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=50)
 
@@ -33,6 +36,7 @@ class Profile(models.Model):
         # username
         # password
         # email
+    _id = models.AutoField(primary_key=True)#models.IntegerField(auto_created=True, default=0, primary_key=True, unique=True)        
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
@@ -46,6 +50,7 @@ def update_user_profile(sender, instance, created, **kwargs):
 
 
 class AudioMessage(models.Model):
+    _id = models.AutoField(primary_key=True)#models.IntegerField(auto_created=True, default=0, primary_key=True, unique=True)
     audio_data = models.FileField(upload_to='messages', storage=grid_fs_storage, null=True, validators=[validate_audio_file_extension])
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    upload_time = models.DateTimeField(default=datetime.now())
+    upload_time = models.DateTimeField(default=django.utils.timezone.now)
