@@ -48,15 +48,33 @@ def index_view(request):
 # will change to class based view
 @login_required
 def profile_view(request):
-    context = {
+    client = MongoClient('mongo', 27017, username='root', password='mongoadmin')
+    db = client['socialvoice']
 
+    audio_coll = db['socialvoiceapp_audiomessage']
+    audio_messages = audio_coll.find(
+        {'user_id': request.user.id}
+    ).sort('upload_time', -1) 
+
+    messages = []
+    for i in range(int(audio_messages.count())):
+        messages.append({
+        'id': audio_messages[i]['_id'],
+        'audio_data': audio_messages[i]['audio_data'],
+        'user_id': audio_messages[i]['user_id'],
+        'upload_time': audio_messages[i]['upload_time'],
+        'audio_id': audio_messages[i]['audio_data'].split('/')[1].split('.')[0]
+        })
+        
+    context = {
+        'profile': Profile.objects.get(user=request.user.id),
+        'messages': messages
     }
 
     return render(request, 'user_profile.html', context=context)
 
 # class ProfileDetailView(LoginRequiredMixin, generic.DetailView):
 #     model = User
-
 
 
 @login_required
@@ -70,7 +88,7 @@ def feed_view(request):
     user_coll = db['socialvoiceapp_profile']
     auth_user_coll = db['auth_user']
 
-    users_ids = user_coll.find({'city_id': Profile.objects.get(user=request.user.id).city.id}, {'user_id', 'avatar'})
+    users_ids = user_coll.find({'city_id': Profile.objects.get(user=request.user.id).city._id}, {'user_id', 'avatar'})
     
     users = []
     ids_to_search = []
