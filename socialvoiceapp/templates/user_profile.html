@@ -1,5 +1,21 @@
-{% extends "base_generic.html" %}
+{% extends 'base_generic.html' %}
+ {% block content %}
+  {% load static %}
+ <link rel="stylesheet" type="text/css" href="{% static 'css/voicememos.css' %}">
+     <!-- start section for th PAGE TITLE -->
+     <section class="small-section background-position-center background-no-repeat wow animate__fadeIn" data-wow-delay="0.2s" style="background-image: url('/socialvoiceapp/static/media/home-branding-agency-bg-img-01.png');">
+         <div class="container">
+             <div class="row justify-content-center">
+                 <div class="col-12 col-md-12 text-center">
+                     <div class="cd-headline slide alt-font font-weight-600 title-extra-large text-extra-dark-gray line-height-170px lg-h-120px overflow-hidden">
+                         <span class="cd-words-wrapper">
+                             <b class="letter-spacing-minus-px sm-letter-spacing-minus-3px is-visible padding-10px-top">{{profile.user}}</b>
+                         </span>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </section>
+    <!-- end section -->
 
-{% block content %}
-  <h1>{{user.name}}</h1>
 {% endblock %}
