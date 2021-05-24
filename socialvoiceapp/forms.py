@@ -40,3 +40,8 @@ class AddAudioMessageForm(forms.ModelForm):
         model = AudioMessage
         fields = ['audio_data', 'user']
         widgets = {'user': forms.HiddenInput()}
+
+class DeleteAudioMessageForm(forms.ModelForm):
+    class Meta:
+        model = AudioMessage
+        fields = []
