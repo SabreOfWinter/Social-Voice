@@ -48,6 +48,7 @@ def index_view(request):
 @login_required
 def profile_view(request):
     context = {
+        'profile': Profile.objects.get(user=request.user.id),
 
     }
 

@@ -1,7 +1,7 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>{{user.name}}</h1>
+  <!-- <h1>{{user.name}}</h1> -->
   <!-- start section for th PAGE TITLE -->
   <section class="small-section background-position-center background-no-repeat wow animate__fadeIn" data-wow-delay="0.2s" style="background-image: url('/socialvoiceapp/static/media/home-branding-agency-bg-img-01.png');">
     <div class="container">
@@ -31,8 +31,8 @@
               <img style="border-radius: 50%;" src="https://i.ibb.co/3SYYJLx/profile-pic.png" class="w-95" alt=""/>
           </div>
           <div class="col-10 col-lg-4 col-md-7 col-sm-8 text-center text-md-left wow animate__fadeIn" data-wow-delay="0.6s">
-              <span class="alt-font font-weight-600 text-large text-slate-blue text-uppercase d-block margin-15px-bottom">Nick Stanchev</span>
-              <p class="w-85 sm-w-100">Aldershit, UK</p>
+              <span class="alt-font font-weight-600 text-large text-slate-blue text-uppercase d-block margin-15px-bottom">{{user}}</span>
+              <p class="w-85 sm-w-100">{{profile.city}}, {{profile.country}}</p>
           </div>
       </div>
   </div>
