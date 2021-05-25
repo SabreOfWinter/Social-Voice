@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'db.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'ENFORCE_SCHEMA': True,
+        'ENFORCE_SCHEMA': False,
         'LOGGING': {
             'version': 1,
             'loggers': {

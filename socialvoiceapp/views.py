@@ -82,6 +82,7 @@ def profile_view(request):
         file_id = audio_files_coll.find_one({'filename': file_name})['_id']
         audio_chuncks_coll.delete_many({'files_id': file_id})
 
+
         #Delete all files with matching filename to audio message
         audio_files_coll.delete_many({'filename': file_name})
         

@@ -16,14 +16,14 @@ grid_fs_storage = GridFSStorage(collection='myfiles', base_url=''.join([settings
 
 # Create your models here.
 class Country(models.Model):
-    _id = models.AutoField(primary_key=True)#models.IntegerField(auto_created=True, default=0, primary_key=True, unique=True)    
+    _id = models.AutoField(primary_key=True) 
     name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.name
 
 class City(models.Model):
-    _id = models.AutoField(primary_key=True)#models.IntegerField(auto_created=True, default=0, primary_key=True, unique=True)    
+    _id = models.AutoField(primary_key=True)   
     country = models.ForeignKey(Country, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=50)
 
@@ -36,21 +36,21 @@ class Profile(models.Model):
         # username
         # password
         # email
-    _id = models.AutoField(primary_key=True)#models.IntegerField(auto_created=True, default=0, primary_key=True, unique=True)        
+    _id = models.AutoField(primary_key=True)      
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
     avatar = models.ImageField(upload_to='avatars', storage=grid_fs_storage, null=True, validators=[validate_image_file_extension])
+
+class AudioMessage(models.Model):
+    managed = True
+    _id = models.AutoField(primary_key=True)
+    audio_data = models.FileField(upload_to='messages', storage=grid_fs_storage, null=True, validators=[validate_audio_file_extension])
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    upload_time = models.DateTimeField(default=django.utils.timezone.now)
 
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
     instance.profile.save()
-
-
-class AudioMessage(models.Model):
-    _id = models.AutoField(primary_key=True)#models.IntegerField(auto_created=True, default=0, primary_key=True, unique=True)
-    audio_data = models.FileField(upload_to='messages', storage=grid_fs_storage, null=True, validators=[validate_audio_file_extension])
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    upload_time = models.DateTimeField(default=django.utils.timezone.now)

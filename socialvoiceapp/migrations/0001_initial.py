@@ -40,11 +40,6 @@ class Migration(migrations.Migration):
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='profile', to=settings.AUTH_USER_MODEL)),
             ],
         ),
-        migrations.AddField(
-            model_name='city',
-            name='country',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='socialvoiceapp.Country'),
-        ),
         migrations.CreateModel(
             name='AudioMessage',
             fields=[
@@ -53,5 +48,10 @@ class Migration(migrations.Migration):
                 ('upload_time', models.DateTimeField()),
                 ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
             ],
+        ),
+        migrations.AddField(
+            model_name='city',
+            name='country',
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='socialvoiceapp.Country'),
         ),
     ]
