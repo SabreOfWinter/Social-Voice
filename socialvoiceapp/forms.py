@@ -1,6 +1,8 @@
 from django import forms
 # from djongo import forms
 from django.contrib.auth.models import User
+from django.forms import widgets
+from django.forms.fields import DateTimeField
 from socialvoiceapp.models import Profile, City, Country, AudioMessage
 
 
@@ -32,3 +34,14 @@ class ProfileCreationForm(forms.ModelForm):
                 pass  # invalid input from the client; ignore and fallback to empty City queryset
         elif self.instance.pk:
             self.fields['city'].queryset = self.instance.country.city_set.order_by('name')
+
+class AddAudioMessageForm(forms.ModelForm):
+    class Meta:
+        model = AudioMessage
+        fields = ['audio_data', 'user']
+        widgets = {'user': forms.HiddenInput()}
+
+class DeleteAudioMessageForm(forms.ModelForm):
+    class Meta:
+        model = AudioMessage
+        fields = []
