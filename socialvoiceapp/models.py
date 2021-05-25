@@ -8,19 +8,22 @@ from djongo.storage import GridFSStorage
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-import datetime
+from datetime import datetime
+import django
 
 # Define your GrifFSStorage instance
 grid_fs_storage = GridFSStorage(collection='myfiles', base_url=''.join([settings.BASE_URL, 'myfiles/']))
 
 # Create your models here.
 class Country(models.Model):
+    _id = models.AutoField(primary_key=True) 
     name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.name
 
 class City(models.Model):
+    _id = models.AutoField(primary_key=True)   
     country = models.ForeignKey(Country, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=50)
 
@@ -33,6 +36,7 @@ class Profile(models.Model):
         # username
         # password
         # email
+    _id = models.AutoField(primary_key=True)      
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
@@ -40,13 +44,13 @@ class Profile(models.Model):
 
 class AudioMessage(models.Model):
     managed = True
+    _id = models.AutoField(primary_key=True)
     audio_data = models.FileField(upload_to='messages', storage=grid_fs_storage, null=True, validators=[validate_audio_file_extension])
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    upload_time = models.DateTimeField()
+    upload_time = models.DateTimeField(default=django.utils.timezone.now)
 
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
     instance.profile.save()
-
