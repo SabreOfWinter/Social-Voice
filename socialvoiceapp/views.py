@@ -4,7 +4,7 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import JsonResponse, HttpResponse
-import datetime
+from datetime import datetime
 from datetime import date, timedelta
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
@@ -14,6 +14,7 @@ from django.contrib.auth.models import User
 from django.views.generic import ListView, CreateView, UpdateView
 from django.urls import reverse_lazy
 from socialvoiceapp.models import Profile, Country, City, AudioMessage
+from .forms import AddAudioMessageForm, DeleteAudioMessageForm
 
 from pymongo import MongoClient
 import gridfs
@@ -47,15 +48,76 @@ def index_view(request):
 # will change to class based view
 @login_required
 def profile_view(request):
-    context = {
+    user = Profile.objects.get(user=request.user.id)
+    client = MongoClient('mongo', 27017, username='root', password='mongoadmin')
+    db = client['socialvoice']
 
+    audio_coll = db['socialvoiceapp_audiomessage']
+    audio_messages = audio_coll.find(
+        {'user_id': request.user.id}
+    ).sort('upload_time', -1) 
+
+    messages = []
+    for i in range(int(audio_messages.count())):
+        messages.append({
+        'id': audio_messages[i]['_id'],
+        'audio_data': audio_messages[i]['audio_data'],
+        'user_id': audio_messages[i]['user_id'],
+        'upload_time': audio_messages[i]['upload_time'],
+        'audio_id': audio_messages[i]['audio_data'].split('/')[1].split('.')[0]
+        })
+
+    addform = AddAudioMessageForm(request.POST, request.FILES, initial = {'user': request.user.id}) # Load the add audio form, with the user field initalized as the logged in user
+    addform.fields['audio_data'].label = 'Audio' # Changes the audio field name in the form
+    addform.fields['user'].disabled = True # The user input is selected by default as the current logged in user, no changes should be allowed
+
+    deleteform = DeleteAudioMessageForm(request.POST, request.FILES)
+
+    if request.method == "POST" and request.POST['action'] == 'Yes':
+        audio_files_coll = db['myfiles.messages.files']
+        audio_chuncks_coll = db['myfiles.messages.chunks']
+
+        #Delete all chuncks with matching files_id to files id
+        file_name = str(request.POST['pk']).split('/')[1]
+        file_id = audio_files_coll.find_one({'filename': file_name})['_id']
+        audio_chuncks_coll.delete_many({'files_id': file_id})
+
+        #Delete all files with matching filename to audio message
+        audio_files_coll.delete_many({'filename': file_name})
+        
+        #Delete audio message with id matching pk
+        audio_coll.delete_one({'audio_data': request.POST['pk']})
+
+        return HttpResponseRedirect('')
+    
+    #Build avatar
+    avatar_fs = gridfs.GridFS(db, collection='myfiles.avatars')
+
+    avatar_file_name = user.avatar.name.split('/')[1]  #Split the avatar url to get the file name to be used in query for the avatar files
+    meta = avatar_fs.get_version(filename=avatar_file_name) #Gets file details using filename from profile
+    avatar_bucket = gridfs.GridFSBucket(db, bucket_name='myfiles.avatars')
+    avatar_file = open('socialvoiceapp/static/'+ user.avatar.name, 'wb')  #Write to file
+    avatar_bucket.download_to_stream(file_id=meta._id, destination=avatar_file) #Download file to static folder
+    avatar_file.close()    
+
+    #Add audio
+
+    if request.method == 'POST' and request.POST['action'] == 'Upload':
+        if addform.is_valid(): # Only allows for audio to be saved if valid audio file is uploaded
+            addform.save()
+            return HttpResponseRedirect('')
+
+    context = {
+        'profile': user,
+        'messages': messages,
+        'addAudioForm': addform,
+        'deleteAudioForm': deleteform
     }
 
     return render(request, 'user_profile.html', context=context)
 
 # class ProfileDetailView(LoginRequiredMixin, generic.DetailView):
 #     model = User
-
 
 
 @login_required
@@ -69,7 +131,7 @@ def feed_view(request):
     user_coll = db['socialvoiceapp_profile']
     auth_user_coll = db['auth_user']
 
-    users_ids = user_coll.find({'city_id': Profile.objects.get(user=request.user.id).city.id}, {'user_id', 'avatar'})
+    users_ids = user_coll.find({'city_id': Profile.objects.get(user=request.user.id).city._id}, {'user_id', 'avatar'})
     
     users = []
     ids_to_search = []
@@ -137,9 +199,20 @@ def feed_view(request):
         audio_bucket.download_to_stream(file_id=meta._id, destination=audio_file) #Download file to static folder
         audio_file.close()
 
+    #Add audio
+    form = AddAudioMessageForm(request.POST, request.FILES, initial = {'user': request.user.id}) # Load the add audio form, with the user field initalized as the logged in user
+    form.fields['audio_data'].label = 'Audio' # Changes the audio field name in the form
+    form.fields['user'].disabled = True # The user input is selected by default as the current logged in user, no changes should be allowed
+
+    if request.method == 'POST':
+        if form.is_valid(): # Only allows for audio to be saved if valid audio file is uploaded
+            form.save()
+            return HttpResponseRedirect('')
+
     context = {
         'profile': Profile.objects.get(user=request.user.id),
-        'messages': messages
+        'messages': messages,
+        'addAudioForm': form
     }
     return render(request, 'feed.html', context=context)
 

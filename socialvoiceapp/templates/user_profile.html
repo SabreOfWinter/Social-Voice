@@ -1,13 +1,16 @@
-{% extends "base_generic.html" %}
+{% extends 'base_generic.html' %}
+ {% block content %}
+  {% load static %}
+ <link rel="stylesheet" type="text/css" href="{% static 'css/voicememos.css' %}">
 
-{% block content %}
+
   <h1>{{user.name}}</h1>
   <!-- start section for th PAGE TITLE -->
   <section class="small-section background-position-center background-no-repeat wow animate__fadeIn" data-wow-delay="0.2s" style="background-image: url('/socialvoiceapp/static/media/home-branding-agency-bg-img-01.png');">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 col-md-12 text-center">
-                <h5 class="alt-font font-weight-300 text-extra-dark-gray mb-0 letter-spacing-minus-1px">Welcome to your:</h5>
+                <h5 class="alt-font font-weight-300 text-extra-dark-gray mb-0 letter-spacing-minus-1px">Welcome to your</h5>
                 <div class="cd-headline slide alt-font font-weight-600 title-extra-large text-extra-dark-gray line-height-170px lg-h-120px overflow-hidden">
                     <span class="cd-words-wrapper">
                         <b class="letter-spacing-minus-5px sm-letter-spacing-minus-3px is-visible">profile</b>
@@ -24,15 +27,14 @@
       <div class="row align-items-center justify-content-center">
           <div class="col-12 col-lg-5 col-sm-9 text-center text-lg-left md-margin-40px-bottom wow animate__fadeIn" data-wow-delay="0.2s">
               <h4 class="alt-font font-weight-700 text-slate-blue text-uppercase letter-spacing-minus-1px">We believe that the voice of every human matters.</h4>
-              <a style="margin-top: 20px;" href="#" class="btn btn-fancy btn-extra-large btn-dark-gray btn-box-shadow d-table d-lg-inline-block lg-margin-15px-bottom md-margin-auto-lr">Upload New Voice Memo</a>
           </div>
           <div class="col-10 col-lg-3 col-md-5 sm-margin-30px-bottom text-center text-md-left wow animate__zoomIn" data-wow-delay="0.4s">
             <!-- Picture is hardcoded FIX -->
-              <img style="border-radius: 50%;" src="https://i.ibb.co/3SYYJLx/profile-pic.png" class="w-95" alt=""/>
+              <img style="border-radius: 50%;" src="static/{{profile.avatar}}" class="w-95" alt=""/>
           </div>
           <div class="col-10 col-lg-4 col-md-7 col-sm-8 text-center text-md-left wow animate__fadeIn" data-wow-delay="0.6s">
-              <span class="alt-font font-weight-600 text-large text-slate-blue text-uppercase d-block margin-15px-bottom">Nick Stanchev</span>
-              <p class="w-85 sm-w-100">Aldershit, UK</p>
+              <span class="alt-font font-weight-600 text-large text-slate-blue text-uppercase d-block margin-15px-bottom">{{profile.user}}</span>
+              <p class="w-85 sm-w-100">{{profile.city}}, {{profile.country}}</p>
           </div>
       </div>
   </div>
@@ -42,12 +44,91 @@
 <section class="bg-light-gray overflow-visible big-section">
   <div class="container">
       <div class="row">
-          <div class="col-12 text-center overlap-section wow animate__flipInX">
-              <span class="alt-font font-weight-600 d-none d-md-inline-block text-gradient-peacock-blue-crome-yellow-2 title-large letter-spacing-minus-10px">my&nbsp&nbspposts</span>
+        <div class="col-12 text-center overlap-section wow animate__flipInX">
+          <span class="alt-font font-weight-600 d-none d-md-inline-block text-gradient-peacock-blue-crome-yellow-2 title-large letter-spacing-minus-10px">my&nbsp&nbspposts&nbsp</span>
+          
+          <div class="container">
+            <div class="row justify-content-center margin-2-rem-bottom">
+              <!-- Trigger the modal with a button -->
+              <a style="margin-top: 20px;" type="button" href="#" class="btn btn-fancy btn-extra-large btn-dark-gray btn-box-shadow d-table d-lg-inline-block lg-margin-15px-bottom md-margin-auto-lr" data-toggle="modal" data-target="#myModal">Upload New Voice Memo</a>
+            
+              <!-- Modal -->
+              <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+                
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title d-inline-block alt-font text-medium text-gradient-sky-blue-pink text-uppercase font-weight-500">Add Message</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Audio files must be in one of the following formats: .mp3, .ogg</p>
+
+                      <form enctype="multipart/form-data" method="POST" action="">
+                          {% csrf_token %}
+                          {{ addAudioForm.as_p}}
+                          <div class="modal-footer">
+                              <input type="submit" class="btn btn-default" name='action' value="Upload"/>
+                          </div>
+                      </form>
+                    </div>
+                  </div>
+                    
+                </div>
+              </div>                
+            </div>
           </div>
+        </div>
       </div>
+
       <div class="row row-cols-1 row-cols-lg-2 justify-content-center margin-3-rem-tb sm-no-margin-top">
           <!-- start showing voice memos-->
+          <div class="container">
+            <div class="row">
+              {% if messages %}
+                {% for message in messages %}
+                <div class="modal fade" id="{{message.audio_id}}" role="dialog">
+                  <div class="modal-dialog">
+                        <!-- start Modal content-->
+                        <div class="modal-content">
+                          <!-- Create a Form -->
+                          <form enctype="multipart/form-data" method="POST" action="">
+                            {% csrf_token %}
+                            <div class="modal-body">
+                              <p>Are you sure you want to delete this message:</p>
+                              <input type="hidden" value="{{message.audio_data}}" name="pk" />
+                              {% include 'voicememos.html' with audio=message.audio_data %}
+                            <span class="d-block text-small">{{message.upload_time}}</span>
+                            </div>
+                            <div class="modal-footer">
+                              <input type="submit" class="btn btn-default" name='action' value="Yes" />
+                              <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                            </div>
+                          </form>
+                        </div>    
+                        <!-- end Modal content-->
+                      </div>
+                    </div>     
+
+                <div class="col-12 panel panel-default fade-in">
+                  <div class="row panel-body testimonials-bubble border-radius-5px bg-white box-shadow-medium box-shadow-extra-large-hover padding-2-rem-lr padding-2-rem-tb margin-35px-bottom lg-padding-2-rem-lr">
+                    <div class="col-6 align-middle">
+                      {% include 'voicememos.html' with audio=message.audio_data %}
+                    </div>
+                    <span class="col-3 align-middle">{{message.upload_time}}</span>   
+                    <!-- Trigger the modal with a button -->
+                    <button type="button" class="col-3 btn btn-info d-inline-block alt-font text-medium text-gradient-sky-blue-pink text-uppercase font-weight-500" data-toggle="modal" data-target="#{{message.audio_id}}">Delete Message</button>
+                    </div> 
+                </div>
+                {% endfor %}
+              {% else %}
+              <div>
+                <p>No Messages Found Posted From This Account</p>
+              </div>                  
+              {% endif %}
+            </div>
+          </div>
           <!-- end showing voice memos -->
       </div>
       <div class="row align-items-center row-cols-1 row-cols-lg-4 row-cols-sm-2 client-logo-style-02 margin-8-rem-top xs-margin-6-rem-top">
@@ -76,3 +157,4 @@
 </section>
 <!-- end section -->
 {% endblock %}
+>>>>>>> 3125362d26fd61e872fe777258088340e7e45e99
