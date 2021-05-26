@@ -3,6 +3,10 @@ __pycache__/
 *.log
 *.pot
 *.pyc
+*.mp3
+*.jpg
+*.png
+*.ogg
 __pycache__/
 local_settings.py
 db.sqlite3
