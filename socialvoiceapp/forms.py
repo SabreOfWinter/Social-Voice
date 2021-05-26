@@ -18,6 +18,8 @@ class UserForm(forms.ModelForm):
 
 
 class ProfileCreationForm(forms.ModelForm):
+    terms_and_conditions = forms.BooleanField(required=True)
+    
     class Meta:
         model = Profile
         fields = ['country', 'city', 'avatar']

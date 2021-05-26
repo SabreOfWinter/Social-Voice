@@ -18,7 +18,7 @@ from .forms import AddAudioMessageForm, DeleteAudioMessageForm
 
 from pymongo import MongoClient
 import gridfs
-from gridfs import GridFS 
+from gridfs import GridFS
 from bson import ObjectId
 import os
 
@@ -55,7 +55,7 @@ def profile_view(request):
     audio_coll = db['socialvoiceapp_audiomessage']
     audio_messages = audio_coll.find(
         {'user_id': request.user.id}
-    ).sort('upload_time', -1) 
+    ).sort('upload_time', -1)
 
     messages = []
     for i in range(int(audio_messages.count())):
@@ -85,12 +85,12 @@ def profile_view(request):
 
         #Delete all files with matching filename to audio message
         audio_files_coll.delete_many({'filename': file_name})
-        
+
         #Delete audio message with id matching pk
         audio_coll.delete_one({'audio_data': request.POST['pk']})
 
         return HttpResponseRedirect('')
-    
+
     #Build avatar
     avatar_fs = gridfs.GridFS(db, collection='myfiles.avatars')
 
@@ -99,7 +99,7 @@ def profile_view(request):
     avatar_bucket = gridfs.GridFSBucket(db, bucket_name='myfiles.avatars')
     avatar_file = open('socialvoiceapp/static/'+ user.avatar.name, 'wb')  #Write to file
     avatar_bucket.download_to_stream(file_id=meta._id, destination=avatar_file) #Download file to static folder
-    avatar_file.close()    
+    avatar_file.close()
 
     #Add audio
 
@@ -117,10 +117,6 @@ def profile_view(request):
 
     return render(request, 'user_profile.html', context=context)
 
-# class ProfileDetailView(LoginRequiredMixin, generic.DetailView):
-#     model = User
-
-
 @login_required
 def feed_view(request):
     client = MongoClient('mongo', 27017, username='root', password='mongoadmin')
@@ -133,10 +129,10 @@ def feed_view(request):
     auth_user_coll = db['auth_user']
 
     users_ids = user_coll.find({'city_id': Profile.objects.get(user=request.user.id).city._id}, {'user_id', 'avatar'})
-    
+
     users = []
     ids_to_search = []
-        
+
     for i in users_ids:
         ids_to_search.append(i['user_id'])
 
@@ -160,7 +156,7 @@ def feed_view(request):
         avatar_bucket = gridfs.GridFSBucket(db, bucket_name='myfiles.avatars')
         avatar_file = open('socialvoiceapp/static/'+i['avatar'], 'wb')  #Write to file
         avatar_bucket.download_to_stream(file_id=meta._id, destination=avatar_file) #Download file to static folder
-        avatar_file.close()        
+        avatar_file.close()
 
     audio_coll = db['socialvoiceapp_audiomessage']
     audio_messages = audio_coll.find(
@@ -189,7 +185,7 @@ def feed_view(request):
                     'avatar'
                 }
             )
-            
+
         })
 
         #Build audio
@@ -219,11 +215,8 @@ def feed_view(request):
 
 
 
-
 from django.shortcuts import render, redirect, get_object_or_404
-
 from .forms import ProfileCreationForm, UserForm
-
 from django.db import transaction
 
 @transaction.atomic
@@ -236,7 +229,8 @@ def create_user_view(request):
             user.refresh_from_db()  # This will load the Profile created by the Signal
             profile_form = ProfileCreationForm(request.POST, instance=user.profile)  # Reload the profile form with the profile instance
             profile_form.full_clean()  # Manually clean the form this time. It is implicitly called by "is_valid()" method
-            profile_form.save()  # Gracefully save the form
+            profile_form.save()  # Save the form
+        return HttpResponseRedirect(reverse('login')) #upon successful submission, redirect user to login page.
     else:
         user_form = UserForm()
         profile_form = ProfileCreationForm()
@@ -257,8 +251,7 @@ def create_user_view(request):
 #
 
 
-
-# AJAX
+# AJAX for the dpeendent dropdown list in the registeration form.
 def load_cities(request):
     country_id = request.GET.get('country_id')
     cities = City.objects.filter(country_id=country_id).all()
