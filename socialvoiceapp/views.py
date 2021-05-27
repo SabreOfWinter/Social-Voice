@@ -221,7 +221,7 @@ def feed_view(request):
 
 
 from django.shortcuts import render, redirect, get_object_or_404
-
+from django.contrib.auth import login, authenticate
 from .forms import ProfileCreationForm, UserForm
 
 from django.db import transaction
@@ -233,10 +233,14 @@ def create_user_view(request):
         profile_form = ProfileCreationForm(request.POST)
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
+            # user.set_password(user.password)
             user.refresh_from_db()  # This will load the Profile created by the Signal
             profile_form = ProfileCreationForm(request.POST, instance=user.profile)  # Reload the profile form with the profile instance
             profile_form.full_clean()  # Manually clean the form this time. It is implicitly called by "is_valid()" method
-            profile_form.save()  # Gracefully save the form
+            # profile.avatar = user.cleaned_data["avatar"]
+            profile_form.save()  # save the form
+            return HttpResponseRedirect(reverse('login')) #upon successful submission, redirect user to login page.
+
     else:
         user_form = UserForm()
         profile_form = ProfileCreationForm()
