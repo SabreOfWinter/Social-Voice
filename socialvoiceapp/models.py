@@ -16,14 +16,14 @@ grid_fs_storage = GridFSStorage(collection='myfiles', base_url=''.join([settings
 
 # Create your models here.
 class Country(models.Model):
-    _id = models.AutoField(primary_key=True) 
+    # _id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.name
 
 class City(models.Model):
-    _id = models.AutoField(primary_key=True)   
+    # _id = models.AutoField(primary_key=True)
     country = models.ForeignKey(Country, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=50)
 
@@ -36,7 +36,7 @@ class Profile(models.Model):
         # username
         # password
         # email
-    _id = models.AutoField(primary_key=True)      
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
