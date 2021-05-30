@@ -27,6 +27,8 @@ services:
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: mongoadmin
+    env_file:
+      - .env
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
@@ -39,7 +41,8 @@ services:
       - migration
     links:
       - mongo
-
+    env_file:
+      - .env
   migration:
     build: .
     image: app
@@ -50,7 +53,8 @@ services:
       - mongo
     depends_on:
       - make_migrations
-
+    env_file:
+      - .env
   make_migrations:
     build: .
     image: app
@@ -61,3 +65,5 @@ services:
       - mongo
     depends_on:
       - mongo
+    env_file:
+      - .env

@@ -18,7 +18,7 @@ class UserForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2', )
+        fields = ('username', 'email', 'password1', 'password2')
 
 class ProfileCreationForm(forms.ModelForm):
     terms_and_conditions = forms.BooleanField(required=True)
@@ -39,7 +39,7 @@ class ProfileCreationForm(forms.ModelForm):
                 pass  # invalid input from the client; ignore and fallback to empty City queryset
         elif self.instance.pk:
             self.fields['city'].queryset = self.instance.country.city_set.order_by('name')
-
+        
 class AddAudioMessageForm(forms.ModelForm):
     class Meta:
         model = AudioMessage
