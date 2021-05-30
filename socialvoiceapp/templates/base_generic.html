@@ -20,10 +20,36 @@
 </head>
 <body>
 
+    
   {% include 'navbar.html' %}
   {% block content %}
   {% endblock %}
+
+    <!-- <div id="cookieConsent">
+        <div id="closeCookieConsent">x</div>
+        This website is using cookies. <a href="#" target="_blank">More info</a>. <a class="cookieConsentOK">That's Fine</a>
+    </div> -->
+    <div class=’cookie-banner’ style='display: always'>
+        <p>
+            By using our website, you agree to our 
+            <a href=’insert-link’>cookie policy</a>
+          </p>
+        <button class=’close’>&times;</button>
+        </div>
+
   {% include 'footer.html' %}
+
+
+    <script type="text/javascript">
+            console
+            if (localStorage.getItem('cookieSeen') != 'shown') {
+            $('.cookie-banner').delay(2000).fadeIn();
+            localStorage.setItem('cookieSeen','shown')
+            };
+            $('.close').click(function() {
+            $('.cookie-banner').fadeOut();
+            })
+    </script>
 
     <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/theme-vendors.min.js' %}"></script>
@@ -131,5 +157,42 @@
                 ; /* END OF ON LOAD FUNCTION */
             }()); /* END OF WRAPPING FUNCTION */
         </script>
+        
+        <script>
+            $('#message a').click(function(){
+                $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+            });
+        </script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $("#id_country").change(function () {
+        const url = $("#personForm").attr("data-cities-url");  // get the url of the `load_cities` view
+        const countryId = $(this).val();  // get the selected country ID from the HTML input
+
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+            data: {
+                'country_id': countryId       // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                $("#id_city").html(data);  // replace the contents of the city input with the data that came from the server
+                /*
+
+                let html_data = '<option value="">---------</option>';
+                data.forEach(function (city) {
+                    html_data += `<option value="${city.id}">${city.name}</option>`
+                });
+                console.log(html_data);
+                $("#id_city").html(html_data);
+
+                */
+            }
+        });
+
+    });
+</script>
+
+
 </body>
 </html>
