@@ -21,7 +21,8 @@ BASE_URL = ''
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'yye&fjstqj08q(^cz4exvw9v$bjsd(-hj4okd^7&fh)eeb6qa)'
+#SECRET_KEY = 'yye&fjstqj08q(^cz4exvw9v$bjsd(-hj4okd^7&fh)eeb6qa)'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -93,8 +94,10 @@ DATABASES = {
         'CLIENT': {
             'host': 'mongo',
             'port': 27017,
-            'username': 'root',
-            'password': "mongoadmin",
+            #'username': 'root',
+            'username': os.environ['DB_USERNAME'],
+            'password': os.environ['DB_PASSWORD'],
+            #'password': "mongoadmin",
             'authSource': 'admin',
             'authMechanism': 'SCRAM-SHA-1'
         }
