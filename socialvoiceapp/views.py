@@ -104,19 +104,20 @@ def profile_view(request):
     #Update user details
     updateUserForm = ProfileUpdateForm(request.POST, request.FILES)#, initial={'country': user.country, 'city': user.city})
 
-    if request.method == 'POST' and request.POST['action'] == 'Upload':
+    if request.method == 'POST':
         #Add audio
-        if addform.is_valid(): # Only allows for audio to be saved if valid audio file is uploaded
-            addform.save()
-            return HttpResponseRedirect('')
-        #Update User Profile details
+        if request.POST['action'] == 'Upload':
+            if addform.is_valid(): # Only allows for audio to be saved if valid audio file is uploaded
+                addform.save()
+                return HttpResponseRedirect('')
+            #Update User Profile details
         elif request.POST['action'] == 'Update':
             if updateUserForm.is_valid():
                 new_country = int(request.POST['country'])
                 new_city = int(request.POST['city'])
-                profiles_coll = db['socialvoice_profile']
-
+                profiles_coll = db['socialvoiceapp_profile']
                 #Try to 
+                
                 try:
                     if request.FILES['avatar']:
                         avatar = request.FILES['avatar']
@@ -125,25 +126,29 @@ def profile_view(request):
                         avatar_chuncks_coll = db['myfiles.avatars.chunks']
 
                         file_name=user.avatar.name.split('/')[1]
-
-                        #Delete all chuncks with matching files_id to files id
-                        file_id = avatar_files_coll.find_one({'filename': file_name})['_id']
-                        avatar_chuncks_coll.delete_many({'files_id': file_id})
-                        avatar_files_coll.delete_many({'filename': file_name})
+                        if not file_name.startswith("default"):
+                            #Delete all chuncks with matching files_id to files id
+                            file_id = avatar_files_coll.find_one({'filename': file_name})['_id']
+                            avatar_chuncks_coll.delete_many({'files_id': file_id})
+                            
+                        
+                            avatar_files_coll.delete_many({'filename': file_name})
 
                         profiles_coll.update_one(
                             {'user_id': user.user_id}, #Filter
-                            {'$set': {'country_id': new_country, 'city_id': new_city, 'avatar': str('avatars/'+ str(user.user_id) + avatar.name)}} #Update data                    
+                            {'$set': {'country_id': new_country, 'city_id': new_city, 'avatar': str('avatars/' + str(request.user) + str( avatar.name))}} #Update data                    
                         )
-
+                        
                         #CREATE NEW DOCUMENT FOR IMAGE
-                        avatar_fs.put(avatar, filename=str(str(user.user_id) + avatar.name), contentType=avatar.content_type)
+                        avatar_fs.put(avatar, filename=str(str(request.user) + str(avatar.name)), contentType=avatar.content_type)
+                        
                 except:
                     if request.POST['avatar'] == '':
                         profiles_coll.update_one(
                             {'user_id': user.user_id}, #Filter
                             {'$set': {'country_id': new_country, 'city_id': new_city}} #Update data                    
                     )
+                    
 
     context = {
         'profile': user,
@@ -191,14 +196,23 @@ def feed_view(request):
                     'avatar_id': i['avatar']
                 }
         )
-
+        print(int(i['user_id']))
         #Build avatar
-        file_name = i['avatar'].split('/')[1]  #Split the avatar url to get the file name to be used in query for the avatar files
-        meta = avatar_fs.get_version(filename=file_name) #Gets file details using filename from profile
-        avatar_bucket = gridfs.GridFSBucket(db, bucket_name='myfiles.avatars')
-        avatar_file = open('socialvoiceapp/static/'+i['avatar'], 'wb')  #Write to file
-        avatar_bucket.download_to_stream(file_id=meta._id, destination=avatar_file) #Download file to static folder
-        avatar_file.close()
+        if i['avatar'] is '':
+            file_name = 'default.png'
+            profiles_coll = db['socialvoiceapp_profile']
+            profiles_coll.update_one(
+                            {'user_id': int(i['user_id'])}, #Filter
+                            {'$set': {'avatar': 'avatars/default.png'}} #Update data                    
+                    )         
+
+        else:
+            file_name = i['avatar'].split('/')[1]  #Split the avatar url to get the file name to be used in query for the avatar files
+            meta = avatar_fs.get_version(filename=file_name) #Gets file details using filename from profile
+            avatar_bucket = gridfs.GridFSBucket(db, bucket_name='myfiles.avatars')
+            avatar_file = open('socialvoiceapp/static/'+i['avatar'], 'wb')  #Write to file
+            avatar_bucket.download_to_stream(file_id=meta._id, destination=avatar_file) #Download file to static folder
+            avatar_file.close()
 
     audio_coll = db['socialvoiceapp_audiomessage']
     audio_messages = audio_coll.find(
@@ -229,7 +243,6 @@ def feed_view(request):
             )
 
         })
-
         #Build audio
         file_name = message['audio_data'].split('/')[1]  #Split the audio url to get the file name to be used in query for the message files
         meta = audio_fs.get_version(filename=file_name) #Gets file details using filename from profile

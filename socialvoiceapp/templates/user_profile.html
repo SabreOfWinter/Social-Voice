@@ -34,7 +34,7 @@
                 <!-- start Modal content-->
                 <div class="modal-content">
                   <!-- Create a Form -->
-                  <form enctype="multipart/form-data" method="POST" action="">
+                  <form id="login-form" enctype="multipart/form-data" method="POST" data-cities-url="{% url 'ajax_load_cities' %}" >
                     {% csrf_token %}
                     <div class="modal-header">
                       <h4 class="modal-title d-inline-block alt-font text-medium text-gradient-sky-blue-pink text-uppercase font-weight-500">Update User Details</h4>
@@ -42,9 +42,12 @@
                       </div>
                     <div class="modal-body">
                       <div class="row justify-content-center">
+                        
                         <img style="border-radius: 50%;" src="static/{{profile.avatar}}" class="w-55 " alt=""/>
                       </div>
-                      {{updateUserForm}}
+                      <!-- <form  method="post" enctype="multipart/form-data" data-cities-url="{% url 'ajax_load_cities' %}"> -->
+                      {{updateUserForm.as_p}}
+                  
                     </div>
                     <div class="modal-footer">
                       <input type="submit" class="btn btn-default" name='action' value="Update" />
