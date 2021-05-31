@@ -21,7 +21,7 @@ class ProfileCreationForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['country', 'city', 'avatar']
+        fields = ['country', 'city']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

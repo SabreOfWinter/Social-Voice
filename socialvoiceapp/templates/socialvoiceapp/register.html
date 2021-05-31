@@ -13,9 +13,10 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}" />
     <div id="login-page">
       <div id="form">
-        <form id="login-form" method="post" enctype="multipart/form-data" data-cities-url="{% url 'ajax_load_cities' %}">
+        <form action="" id="login-form" method="post" enctype="multipart/form-data" data-cities-url="{% url 'ajax_load_cities' %}">
         {% csrf_token %}
         <h2 style="margin-bottom: 50px;">Register</h2>
+        {{ profile_form.subject.errors }}
         {{ user_form.as_p }}
         {{ profile_form.as_p}}
         <button>Register</button>
@@ -25,5 +26,4 @@
     </div>
     </div>
   </section>
-  
 {% endblock %}
