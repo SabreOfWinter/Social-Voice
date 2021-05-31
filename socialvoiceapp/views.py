@@ -107,12 +107,47 @@ def profile_view(request):
         if addform.is_valid(): # Only allows for audio to be saved if valid audio file is uploaded
             addform.save()
             return HttpResponseRedirect('')
+        #Update User Profile details
+        elif request.POST['action'] == 'Update':
+            if updateUserForm.is_valid():
+                new_country = int(request.POST['country'])
+                new_city = int(request.POST['city'])
+
+                #Try to 
+                try:
+                    if request.FILES['avatar']:
+                        avatar = request.FILES['avatar']
+
+                        avatar_files_coll = db['myfiles.avatars.files']
+                        avatar_chuncks_coll = db['myfiles.avatars.chunks']
+
+                        file_name=user.avatar.name.split('/')[1]
+
+                        #Delete all chuncks with matching files_id to files id
+                        file_id = avatar_files_coll.find_one({'filename': file_name})['_id']
+                        avatar_chuncks_coll.delete_many({'files_id': file_id})
+                        avatar_files_coll.delete_many({'filename': file_name})
+
+                        profiles_coll.update_one(
+                            {'user_id': user.user_id}, #Filter
+                            {'$set': {'country_id': new_country, 'city_id': new_city, 'avatar': str('avatars/'+ str(user.user_id) + avatar.name)}} #Update data                    
+                        )
+
+                        #CREATE NEW DOCUMENT FOR IMAGE
+                        avatar_fs.put(avatar, filename=str(str(user.user_id) + avatar.name), contentType=avatar.content_type)
+                except:
+                    if request.POST['avatar'] == '':
+                        profiles_coll.update_one(
+                            {'user_id': user.user_id}, #Filter
+                            {'$set': {'country_id': new_country, 'city_id': new_city}} #Update data                    
+                    )
 
     context = {
         'profile': user,
         'messages': messages,
         'addAudioForm': addform,
-        'deleteAudioForm': deleteform
+        'deleteAudioForm': deleteform,
+        'updateUserForm': updateUserForm
     }
 
     return render(request, 'user_profile.html', context=context)
