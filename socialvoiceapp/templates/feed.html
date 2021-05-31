@@ -19,77 +19,70 @@
      </section>
     <!-- end section -->
 
-        <!-- start section -->
-        <section class="bg-light-blue">
+    <!-- start section -->
+    <section class="bg-light-blue">
 
-            <div class="container">
-                <div class="row justify-content-center margin-2-rem-bottom">
-                    <!-- Trigger the modal with a button -->
-                    <button type="button" class="btn btn-info d-inline-block alt-font text-medium text-gradient-sky-blue-pink text-uppercase font-weight-500" data-toggle="modal" data-target="#myModal">Add Message</button>
-                  
-                    <!-- Modal -->
-                    <div class="modal fade" id="myModal" role="dialog">
-                      <div class="modal-dialog">
-                      
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h4 class="modal-title d-inline-block alt-font text-medium text-gradient-sky-blue-pink text-uppercase font-weight-500">Add Message</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          </div>
-                          <div class="modal-body">
-                            <p>Audio files must be in one of the following formats: .mp3, .ogg</p>
-
-                            <form enctype="multipart/form-data" method="POST" action="">
-                                {% csrf_token %}
-                                {{ addAudioForm.as_p}}
-                                <div class="modal-footer">
-                                    <input type="submit" class="btn btn-default" value="Upload"/>
-                                </div>
-                            </form>
-                          </div>
+        <div class="container">
+            <div class="row justify-content-center margin-2-rem-bottom">
+                <!-- Trigger the modal with a button -->
+                <button type="button" class="btn btn-info d-inline-block alt-font text-medium text-gradient-sky-blue-pink text-uppercase font-weight-500" data-toggle="modal" data-target="#myModal">Add Message</button>
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h4 class="modal-title d-inline-block alt-font text-medium text-gradient-sky-blue-pink text-uppercase font-weight-500">Add Message</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
-                        
-                      </div>
-                    </div>                
-                </div>
-              </div>
+                        <div class="modal-body">
+                        <p>Audio files must be in one of the following formats: .mp3, .ogg</p>
 
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-12 col-xl-5 col-lg-6 col-sm-8 text-center margin-5-rem-bottom wow animate__fadeIn">
-                        <span class="d-inline-block alt-font text-medium text-gradient-sky-blue-pink text-uppercase font-weight-500 margin-20px-bottom sm-margin-15px-bottom">Feed for GUILDFORD AREA</span>
-                        <h5 class="alt-font text-extra-dark-gray font-weight-600 letter-spacing-minus-1px">Latest Messsages In {{profile.city}}, {{profile.country}}</h5>
-                    </div>
-                </div>
-                <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 justify-content-center">
-                    <!-- start testimonial item -->
-                    {% for message in messages%}
-                    <div class="col col-sm-8 wow animate__fadeInUp" data-wow-delay="0.6s">
-                        <div class="testimonials testimonials-style-03 last-paragraph-no-margin">
-                            <div class="testimonials-bubble border-radius-5px bg-white box-shadow-medium box-shadow-extra-large-hover padding-2-rem-lr padding-2-rem-tb margin-35px-bottom lg-padding-2-rem-lr">
-                                {% include 'voicememos.html' with audio=message.audio.audio_data %}
+                        <form enctype="multipart/form-data" method="POST" action="">
+                            {% csrf_token %}
+                            {{ addAudioForm.as_p}}
+                            <div class="modal-footer">
+                                <input type="submit" class="btn btn-default" value="Upload"/>
                             </div>
-                            <div class="author padding-20px-lr">
-                                {% if message.profile.is_active %}
-                                <img class="rounded-circle w-55px h-55px margin-15px-right" src="static/{{message.avatar.avatar}}" alt="">
-                                {% else %}
-                                <img class="rounded-circle w-55px h-55px margin-15px-right opacity-4" src="static/{{message.avatar.avatar}}" alt="">
-                                {% endif %}
-                                <div class="d-inline-block align-middle">
-                                    <span class="alt-font text-medium font-weight-500 line-height-24px text-extra-dark-gray d-block">{{message.profile.username}}</span>
-                                    <span class="d-block text-small">{{message.audio.upload_time}}</span>
-                                </div>
-                            </div>
+                        </form>
                         </div>
+                    </div> 
                     </div>
-                    {% endfor %}
-                    <!-- end testimonial item -->
+                </div>                
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-xl-5 col-lg-6 col-sm-8 text-center margin-5-rem-bottom wow animate__fadeIn">
+                    <span class="d-inline-block alt-font text-medium text-gradient-sky-blue-pink text-uppercase font-weight-500 margin-20px-bottom sm-margin-15px-bottom">Latest Messsages In {{profile.city}}, {{profile.country}}</span>
                 </div>
             </div>
-        </section>
-        <!-- end section -->
-
-
-
+            <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 justify-content-center">
+                <!-- start testimonial item -->
+                {% for message in messages%}
+                <div class="col col-sm-8 wow animate__fadeInUp" data-wow-delay="0.6s">
+                    <div class="testimonials testimonials-style-03 last-paragraph-no-margin">
+                        <div class="testimonials-bubble border-radius-5px bg-white box-shadow-medium box-shadow-extra-large-hover padding-2-rem-lr padding-2-rem-tb margin-35px-bottom lg-padding-2-rem-lr">
+                            {% include 'voicememos.html' with audio=message.audio.audio_data %}
+                        </div>
+                        <div class="author padding-20px-lr">
+                            {% if message.profile.is_active %}
+                            <img class="rounded-circle w-55px h-55px margin-15px-right" src="static/{{message.avatar.avatar}}" alt="">
+                            {% else %}
+                            <img class="rounded-circle w-55px h-55px margin-15px-right opacity-4" src="static/{{message.avatar.avatar}}" alt="">
+                            {% endif %}
+                            <div class="d-inline-block align-middle">
+                                <span class="alt-font text-medium font-weight-500 line-height-24px text-extra-dark-gray d-block">{{message.profile.username}}</span>
+                                <span class="d-block text-small">{{message.audio.upload_time}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <!-- end testimonial item -->
+            </div>
+        </div>
+    </section>
+    <!-- end section -->
 {% endblock %}
