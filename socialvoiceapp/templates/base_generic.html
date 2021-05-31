@@ -169,7 +169,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
     $("#id_country").change(function () {
-        const url = $("#personForm").attr("data-cities-url");  // get the url of the `load_cities` view
+        const url = $("#login-form").attr("data-cities-url");  // get the url of the `load_cities` view
         const countryId = $(this).val();  // get the selected country ID from the HTML input
 
         $.ajax({                       // initialize an AJAX request
