@@ -10,5 +10,4 @@ urlpatterns = [
     path('register', views.create_user_view, name='register'),
 
     path('ajax/load-cities/', views.load_cities, name='ajax_load_cities'), # AJAX
-
 ]
