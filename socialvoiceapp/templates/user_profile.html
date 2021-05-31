@@ -26,13 +26,42 @@
               <h4 class="alt-font font-weight-700 text-slate-blue text-uppercase letter-spacing-minus-1px">We believe that the voice of every human matters.</h4>
           </div>
           <div class="col-10 col-lg-3 col-md-5 sm-margin-30px-bottom text-center text-md-left wow animate__zoomIn" data-wow-delay="0.4s">
-            <!-- Picture is hardcoded FIX -->
               <img style="border-radius: 50%;" src="static/{{profile.avatar}}" class="w-95" alt=""/>
           </div>
           <div class="col-10 col-lg-4 col-md-7 col-sm-8 text-center text-md-left wow animate__fadeIn" data-wow-delay="0.6s">
-              <span class="alt-font font-weight-600 text-large text-slate-blue text-uppercase d-block margin-15px-bottom">{{profile.user}}</span>
+            <div class="modal fade" id="edit_user" role="dialog">
+              <div class="modal-dialog">
+                <!-- start Modal content-->
+                <div class="modal-content">
+                  <!-- Create a Form -->
+                  <form enctype="multipart/form-data" method="POST" action="">
+                    {% csrf_token %}
+                    <div class="modal-header">
+                      <h4 class="modal-title d-inline-block alt-font text-medium text-gradient-sky-blue-pink text-uppercase font-weight-500">Update User Details</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+                    <div class="modal-body">
+                      <div class="row justify-content-center">
+                        <img style="border-radius: 50%;" src="static/{{profile.avatar}}" class="w-55 " alt=""/>
+                      </div>
+                      {{updateUserForm}}
+                    </div>
+                    <div class="modal-footer">
+                      <input type="submit" class="btn btn-default" name='action' value="Update" />
+                      <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    </div>
+                  </form>
+                </div>    
+                <!-- end Modal content-->
+              </div>
+            </div>  
 
-              <p class="w-85 sm-w-100">{{profile.city}}, {{profile.country}}</p>
+            <span class="alt-font font-weight-600 text-large text-slate-blue text-uppercase d-block margin-15px-bottom">
+              {{profile.user}}
+              <a class="btn " href="#!" role="button" data-toggle="modal" data-target="#edit_user"><i class="fas fa-user-edit fa-lg"></i></a>
+            </span>
+
+            <p class="w-85 sm-w-100">{{profile.city}}, {{profile.country}}</p>
           </div>
       </div>
   </div>
@@ -88,26 +117,26 @@
                 {% for message in messages %}
                 <div class="modal fade" id="{{message.audio_id}}" role="dialog">
                   <div class="modal-dialog">
-                        <!-- start Modal content-->
-                        <div class="modal-content">
-                          <!-- Create a Form -->
-                          <form enctype="multipart/form-data" method="POST" action="">
-                            {% csrf_token %}
-                            <div class="modal-body">
-                              <p>Are you sure you want to delete this message:</p>
-                              <input type="hidden" value="{{message.audio_data}}" name="pk" />
-                              {% include 'voicememos.html' with audio=message.audio_data %}
-                            <span class="d-block text-small">{{message.upload_time}}</span>
-                            </div>
-                            <div class="modal-footer">
-                              <input type="submit" class="btn btn-default" name='action' value="Yes" />
-                              <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                            </div>
-                          </form>
-                        </div>    
-                        <!-- end Modal content-->
-                      </div>
-                    </div>     
+                    <!-- start Modal content-->
+                    <div class="modal-content">
+                      <!-- Create a Form -->
+                      <form enctype="multipart/form-data" method="POST" action="">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                          <p>Are you sure you want to delete this message:</p>
+                          <input type="hidden" value="{{message.audio_data}}" name="pk" />
+                          {% include 'voicememos.html' with audio=message.audio_data %}
+                        <span class="d-block text-small">{{message.upload_time}}</span>
+                        </div>
+                        <div class="modal-footer">
+                          <input type="submit" class="btn btn-default" name='action' value="Yes" />
+                          <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                        </div>
+                      </form>
+                    </div>    
+                    <!-- end Modal content-->
+                  </div>
+                </div>     
 
                 <div class="col-12 panel panel-default fade-in">
                   <div class="row panel-body testimonials-bubble border-radius-5px bg-white box-shadow-medium box-shadow-extra-large-hover padding-2-rem-lr padding-2-rem-tb margin-35px-bottom lg-padding-2-rem-lr">
