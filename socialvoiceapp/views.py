@@ -14,7 +14,7 @@ from django.contrib.auth.models import User
 from django.views.generic import ListView, CreateView, UpdateView
 from django.urls import reverse_lazy
 from socialvoiceapp.models import Profile, Country, City, AudioMessage
-from .forms import AddAudioMessageForm, DeleteAudioMessageForm
+from .forms import AddAudioMessageForm, DeleteAudioMessageForm, ProfileUpdateForm
 
 from pymongo import MongoClient
 import gridfs
@@ -101,9 +101,11 @@ def profile_view(request):
     avatar_bucket.download_to_stream(file_id=meta._id, destination=avatar_file) #Download file to static folder
     avatar_file.close()
 
-    #Add audio
+    #Update user details
+    updateUserForm = ProfileUpdateForm(request.POST, request.FILES)#, initial={'country': user.country, 'city': user.city})
 
     if request.method == 'POST' and request.POST['action'] == 'Upload':
+        #Add audio
         if addform.is_valid(): # Only allows for audio to be saved if valid audio file is uploaded
             addform.save()
             return HttpResponseRedirect('')
@@ -112,6 +114,7 @@ def profile_view(request):
             if updateUserForm.is_valid():
                 new_country = int(request.POST['country'])
                 new_city = int(request.POST['city'])
+                profiles_coll = db['socialvoice_profile']
 
                 #Try to 
                 try:
