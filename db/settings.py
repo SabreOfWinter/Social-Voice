@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'socialvoiceapp',
-    'cookie_consent',
 ]
 
 MIDDLEWARE = [
