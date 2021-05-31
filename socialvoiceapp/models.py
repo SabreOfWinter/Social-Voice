@@ -16,14 +16,12 @@ grid_fs_storage = GridFSStorage(collection='myfiles', base_url=''.join([settings
 
 # Create your models here.
 class Country(models.Model):
-    #_id = models.AutoField(primary_key=True,unique=True)
     name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.name
 
 class City(models.Model):
-    # _id = models.AutoField(primary_key=True,unique=True)
     country = models.ForeignKey(Country, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=50)
 
@@ -35,8 +33,8 @@ class Profile(models.Model):
     # default user model attributes:
         # username
         # password
-        # email
-    # _id = models.AutoField(primary_key=True,unique=True)
+        # email  
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
@@ -44,7 +42,6 @@ class Profile(models.Model):
 
 class AudioMessage(models.Model):
     managed = True
-    # _id = models.AutoField(primary_key=True,unique=True)
     audio_data = models.FileField(upload_to='messages', storage=grid_fs_storage, null=True, validators=[validate_audio_file_extension])
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     upload_time = models.DateTimeField(default=django.utils.timezone.now)
