@@ -2,49 +2,28 @@
 {% load static %}
 {% block content %}
 
-
-<h2>Register</h2>
-
 <!-- <form method="post" id="personForm" data-cities-url="{% url 'ajax_load_cities' %}">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Submit">
 </form> -->
 
-<form method="post" id="personForm" data-cities-url="{% url 'ajax_load_cities' %}">
-  {% csrf_token %}
-  {{ user_form.as_p }}
-  {{ profile_form.as_p }}
-  <input type="submit" value="Submit">
-  <!-- <button type="submit">Register</button> -->
-</form>
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script>
-    $("#id_country").change(function () {
-        const url = $("#personForm").attr("data-cities-url");  // get the url of the `load_cities` view
-        const countryId = $(this).val();  // get the selected country ID from the HTML input
-
-        $.ajax({                       // initialize an AJAX request
-            url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
-            data: {
-                'country_id': countryId       // add the country id to the GET parameters
-            },
-            success: function (data) {   // `data` is the return of the `load_cities` view function
-                $("#id_city").html(data);  // replace the contents of the city input with the data that came from the server
-                /*
-
-                let html_data = '<option value="">---------</option>';
-                data.forEach(function (city) {
-                    html_data += `<option value="${city.id}">${city.name}</option>`
-                });
-                console.log(html_data);
-                $("#id_city").html(html_data);
-
-                */
-            }
-        });
-
-    });
-</script>
+<section id="loginbody">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}" />
+    <div id="login-page">
+      <div id="form">
+        <form id="login-form" method="post" enctype="multipart/form-data" data-cities-url="{% url 'ajax_load_cities' %}">
+        {% csrf_token %}
+        <h2 style="margin-bottom: 50px;">Register</h2>
+        {{ user_form.as_p }}
+        {{ profile_form.as_p}}
+        <button>Register</button>
+        <p id="message">Already registered? <a href="{% url 'login' %}">LOGIN</a></p>
+        </form>
+      </div>
+    </div>
+    </div>
+  </section>
+  
 {% endblock %}

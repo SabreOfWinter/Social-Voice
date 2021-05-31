@@ -34,6 +34,7 @@ class Profile(models.Model):
         # username
         # password
         # email  
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)

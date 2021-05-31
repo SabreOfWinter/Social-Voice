@@ -16,15 +16,8 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}" />
   <div id="login-page">
     <div id="form">
-      <form  method="post" action="{% url 'login' %}" id="register-form">
-        {% csrf_token %}
-        <input type="text" placeholder="Username"/>
-        <input type="password" placeholder="Password"/>
-        <input type="text" placeholder="Location"/>
-        <button>create</button>
-        <p class="message">Already registered? <a href="{% url 'login'%}">Sign In</a></p>
-      </form>
       <form id="login-form" action="{% url 'login' %}" method="post" >
+        <h2 style="margin-bottom: 50px;">LOGIN</h2>
         {% csrf_token %}
         <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username" placeholder="Username">
         <input type="password" name="password" autocomplete="current-password" required="" id="id_password" placeholder="Password">

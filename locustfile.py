@@ -15,14 +15,16 @@ class UserActions(HttpUser):
         self.client.post(
         '/accounts/login/',
         {
-            'username': 'ivanivan',
-            'password': 'ivan123A',
+            'username': 'admin',
+            'password': 'admin',
             'csrfmiddlewaretoken': csrftoken
         },
         headers={
             'X-CSRFToken': csrftoken,
             'Referer': self.host + '/accounts/login/'
-        })
+        },
+        allow_redirects=False)
+        
     @task(1)
     def index(self):
         self.client.get('/')
